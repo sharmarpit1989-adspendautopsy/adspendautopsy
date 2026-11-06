@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K1V146SCTV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K1V146SCTV');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Primary SEO -->
+<title>Ad Spend Autopsy — Free Google Ads Waste Audit Tool</title>
+<meta name="description" content="Upload your Google Ads Search Terms, Keyword, Campaign report or bulksheet and instantly see wasted spend, broad-match leaks, budget caps and bloated ad groups. Free, runs entirely in your browser — nothing is uploaded.">
+<meta name="keywords" content="Google Ads audit, PPC audit tool, wasted ad spend, Google Ads waste checker, free PPC audit, search terms report audit, broad match keywords, campaign bulksheet">
+<meta name="author" content="Ad Spend Autopsy">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0f7052">
+<link rel="canonical" href="https://www.adspendautopsy.com/audit">
+
+<!-- Open Graph (link previews on Instagram, WhatsApp, LinkedIn, Facebook) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ad Spend Autopsy">
+<meta property="og:title" content="Free Google Ads Waste Audit — Ad Spend Autopsy">
+<meta property="og:description" content="Drop in your Google Ads export and see exactly where your budget leaked — wasted spend, broad-match exposure, budget caps and more. Runs in your browser; nothing is uploaded.">
+<meta property="og:url" content="https://www.adspendautopsy.com/audit">
+<meta property="og:image" content="https://www.adspendautopsy.com/logo-light.png">
+<meta property="og:image:alt" content="Ad Spend Autopsy">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Google Ads Waste Audit — Ad Spend Autopsy">
+<meta name="twitter:description" content="Upload a Google Ads report and instantly see where your ad spend leaked. Free and private — runs entirely in your browser.">
+<meta name="twitter:image" content="https://www.adspendautopsy.com/logo-light.png">
+
+<link rel="icon" href="/logo-light.png">
+<link rel="apple-touch-icon" href="/logo-light.png">
+
+<!-- Structured data: WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Ad Spend Autopsy",
+  "url": "https://www.adspendautopsy.com/audit",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (web browser)",
+  "description": "A free Google Ads self-audit tool. Upload a performance report or campaign bulksheet and see wasted spend, broad-match exposure, budget caps, low conversion volume and ad-group bloat. All analysis runs client-side in the browser.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": [
+    "Wasted spend detection",
+    "Broad-match exposure analysis",
+    "Bid strategy check",
+    "Budget-capped campaign detection",
+    "Low conversion volume warning",
+    "Ad-group bloat check"
+  ]
+}
+</script>
+<!-- Structured data: FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is my Google Ads data uploaded anywhere?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The tool reads your CSV entirely in your own browser. Your file is never uploaded or sent to any server." }
+    },
+    {
+      "@type": "Question",
+      "name": "What file do I need to run an audit?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A Google Ads Search Terms, Keyword or Campaign performance report (CSV), or a campaign bulksheet exported from Google Ads Editor. For spend-leak checks include the Cost and Conversions columns." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does Ad Spend Autopsy check?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Wasted spend on zero-conversion terms, broad-match exposure, Maximize-clicks bid strategies, budget-capped campaigns, low conversion volume, and bloated ad groups." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, the self-audit is completely free. A paid 30-minute teardown is available if you want prioritised, business-specific fixes." }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf9f7; --surface:#ffffff; --ink:#201d1a; --ink-2:#6b6760; --muted:#9a968e;
+  --teal:#0f7052; --teal-ink:#0a5a42; --teal-soft:#e9f4ef;
+  --line:#edece7; --line-2:#e3e1da;
+  --crit:#c0442a; --crit-soft:#fbeee9; --warn:#a9790f; --warn-soft:#f8f1df; --ok:#1b7a4d; --ok-soft:#e8f4ec;
+  --shadow:0 1px 2px rgba(30,25,20,.04), 0 4px 16px rgba(30,25,20,.05);
+  --shadow-sm:0 1px 2px rgba(30,25,20,.05);
+  --font:"Rubik",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141619; --surface:#1d2024; --ink:#f1f1ef; --ink-2:#a8a69e; --muted:#76746c;
+  --teal:#2ec08c; --teal-ink:#5dcaa5; --teal-soft:#15302a;
+  --line:#2a2d33; --line-2:#33363c;
+  --crit:#f0a088; --crit-soft:#321d17; --warn:#e6b85f; --warn-soft:#2c2512; --ok:#6fd49a; --ok-soft:#142f22;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141619; --surface:#1d2024; --ink:#f1f1ef; --ink-2:#a8a69e; --muted:#76746c;
+  --teal:#2ec08c; --teal-ink:#5dcaa5; --teal-soft:#15302a;
+  --line:#2a2d33; --line-2:#33363c;
+  --crit:#f0a088; --crit-soft:#321d17; --warn:#e6b85f; --warn-soft:#2c2512; --ok:#6fd49a; --ok-soft:#142f22;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;font-size:15px;
+  -webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:760px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav img{height:30px;width:auto}
+.nav .logo-light{display:block}
+.nav .logo-dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nav .logo-light{display:none}
+  :root:not([data-theme="light"]) .nav .logo-dark{display:block}}
+:root[data-theme="dark"] .nav .logo-light{display:none}
+:root[data-theme="dark"] .nav .logo-dark{display:block}
+.nav-tag{color:var(--muted);font-size:13px;font-weight:500;white-space:nowrap}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 72px}
+h1{font-weight:800;font-size:34px;line-height:1.1;margin:0 0 14px;letter-spacing:-.02em;text-wrap:balance}
+.lede{color:var(--ink-2);font-size:17px;margin:0 auto;max-width:35em}
+.hero{text-align:center;margin:0 0 28px}
+.badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;letter-spacing:.02em;
+  color:var(--teal-ink);background:var(--teal-soft);border:1px solid color-mix(in srgb,var(--teal) 20%,transparent);
+  padding:5px 13px;border-radius:999px;margin:0 0 18px}
+.badge .d{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.trust{display:flex;gap:10px 20px;justify-content:center;flex-wrap:wrap;margin:18px 0 0;color:var(--muted);font-size:13px}
+.trust span{display:inline-flex;align-items:center;gap:6px}
+.trust .c{color:var(--teal);font-weight:700}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.upload{padding:32px 26px;text-align:center;border-style:dashed;border-width:1.5px;border-color:var(--line-2);transition:border-color .15s}
+.upload .big{font-weight:600;font-size:17px;margin:0 0 4px}
+.upload .sub{color:var(--ink-2);font-size:14px;margin:0 0 20px}
+.btn{font-family:var(--font);font-weight:500;font-size:15px;border:none;background:var(--teal);color:#fff;
+  border-radius:10px;padding:12px 24px;cursor:pointer;box-shadow:var(--shadow-sm)}
+.btn:hover{filter:brightness(1.05)} .btn:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px}
+.slots{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:20px 0 0}
+.slot{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-2);border-radius:999px;
+  padding:5px 13px;font-size:13px;color:var(--muted);background:var(--bg)}
+.slot .tick{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--line-2);display:inline-flex;
+  align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted)}
+.slot.on{color:var(--ink);border-color:var(--teal)}
+.slot.on .tick{background:var(--teal);border-color:var(--teal);color:#fff}
+.subtle-actions{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin:16px 0 0}
+.link{background:none;border:none;color:var(--teal-ink);cursor:pointer;font:inherit;font-size:14px;padding:2px;
+  text-decoration:underline;text-underline-offset:2px}
+.hint{color:var(--ink-2);font-size:13px;margin:16px auto 0;max-width:44em;line-height:1.5}
+.hint b{color:var(--ink);font-weight:500}
+.disc{margin:14px 0 0;color:var(--muted);font-size:12.5px;display:flex;gap:6px;align-items:center;justify-content:center}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex:none}
+
+/* How it works strip */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 0}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 16px;box-shadow:var(--shadow-sm)}
+.step .n{width:26px;height:26px;border-radius:8px;background:var(--teal-soft);color:var(--teal-ink);font-weight:800;
+  font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 0 10px}
+.step h3{font-size:15px;font-weight:600;margin:0 0 4px}
+.step p{font-size:13.5px;color:var(--ink-2);margin:0;line-height:1.5}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+details{margin:14px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0 18px;box-shadow:var(--shadow-sm)}
+details summary{cursor:pointer;padding:14px 0;font-weight:500;font-size:14px;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+ ";color:var(--teal-ink);font-weight:600}
+details[open] summary::before{content:"– "}
+details ol,details ul{margin:0 0 16px;padding-left:20px;color:var(--ink-2);font-size:14px}
+details li{margin:8px 0}
+.meth b{color:var(--ink);font-weight:500} .meth .cd{color:var(--crit);font-weight:700} .meth .wd{color:var(--warn);font-weight:700}
+
+.hidden{display:none}
+.section-gap{margin-top:34px}
+
+.summary{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:22px 24px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.sum-label{color:var(--ink-2);font-size:13px;margin:0 0 2px}
+.sum-big{font-weight:800;font-size:38px;line-height:1;margin:0;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.sum-big.bad{color:var(--crit)}
+.sum-sub{color:var(--muted);font-size:13px;margin:4px 0 0}
+.ipills{display:flex;gap:8px;flex-wrap:wrap}
+.ipill{font-size:13px;font-weight:500;padding:6px 13px;border-radius:999px;display:inline-flex;align-items:center;gap:7px}
+.ipill .d{width:7px;height:7px;border-radius:50%}
+.ipill.crit{background:var(--crit-soft);color:var(--crit)} .ipill.crit .d{background:var(--crit)}
+.ipill.warn{background:var(--warn-soft);color:var(--warn)} .ipill.warn .d{background:var(--warn)}
+.ipill.ok{background:var(--ok-soft);color:var(--ok)} .ipill.ok .d{background:var(--ok)}
+
+.statbar{display:flex;flex-wrap:wrap;margin:14px 0 0;background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;box-shadow:var(--shadow-sm);overflow:hidden}
+.stat{flex:1 1 130px;padding:16px 18px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .sv{display:block;font-weight:600;font-size:20px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.stat .sv.bad{color:var(--crit)}
+.stat .sk{display:block;color:var(--ink-2);font-size:12.5px;margin-top:2px}
+
+.h-sec{font-weight:600;font-size:15px;color:var(--ink-2);letter-spacing:.01em;margin:30px 0 12px;
+  text-transform:uppercase;font-size:12.5px;letter-spacing:.08em}
+.finding{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:10px 0;box-shadow:var(--shadow-sm)}
+.f-head{display:flex;align-items:center;gap:9px;margin:0 0 9px}
+.sdot{width:9px;height:9px;border-radius:50%;flex:none}
+.sdot.crit{background:var(--crit)} .sdot.warn{background:var(--warn)} .sdot.ok{background:var(--ok)}
+.slabel{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.slabel.crit{color:var(--crit)} .slabel.warn{color:var(--warn)} .slabel.ok{color:var(--ok)}
+.stitchtag{font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--teal-ink);background:var(--teal-soft);
+  padding:2px 9px;border-radius:999px;text-transform:uppercase}
+.finding h3{font-weight:600;font-size:16.5px;margin:0 0 5px;line-height:1.35}
+.finding p{margin:0 0 7px;color:var(--ink);font-size:14.5px}
+.finding .fix{font-size:14px;color:var(--ink-2);margin:0;padding-top:9px;border-top:1px solid var(--line)}
+.finding .fix b{color:var(--ink);font-weight:500}
+.finding .fix .tag{font-weight:600;color:var(--teal-ink);margin-right:6px}
+
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:right;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal;min-width:160px}
+th{font-weight:500;color:var(--muted);font-size:12px;background:var(--bg)}
+tr:last-child td{border-bottom:none}
+
+.err{background:var(--crit-soft);color:var(--crit);border-radius:12px;padding:13px 18px;margin:16px 0;font-size:14px}
+.empty{color:var(--ink-2);text-align:center;padding:30px 0;font-size:15px}
+
+.cta{margin-top:40px;border-radius:18px;background:var(--teal-soft);border:1px solid color-mix(in srgb,var(--teal) 22%,transparent);padding:30px 28px}
+.cta h2{font-weight:800;font-size:22px;margin:0 0 8px;letter-spacing:-.01em}
+.cta p{color:var(--ink-2);margin:0 0 8px;max-width:52em}
+.cta .lead{color:var(--ink);font-weight:500}
+.cta a.cta-btn{display:inline-block;margin-top:14px;background:var(--teal);color:#fff;text-decoration:none;
+  font-weight:500;font-size:15px;padding:12px 24px;border-radius:10px;box-shadow:var(--shadow-sm)}
+.cta a.cta-btn:hover{filter:brightness(1.05)}
+.cta .handle{color:var(--muted);font-size:13px;margin:10px 0 0}
+
+.seo-copy{margin-top:40px;color:var(--ink-2);font-size:14px;line-height:1.7}
+.seo-copy h2{color:var(--ink);font-weight:800;font-size:20px;letter-spacing:-.01em;margin:0 0 10px}
+.seo-copy p{margin:0 0 12px;max-width:60em}
+.seo-copy b{color:var(--ink);font-weight:500}
+
+footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;text-align:center}
+
+.nav .brand{display:inline-flex;align-items:center}
+.nav-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--ink-2);text-decoration:none;font-size:14px;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+@media (max-width:480px){.nav-links{gap:12px}.nav-links a{font-size:13px}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a class="brand" href="/" aria-label="Ad Spend Autopsy home">
+    <img class="logo-light" src="/logo-light.png" alt="Ad Spend Autopsy">
+    <img class="logo-dark" src="/logo-dark.png" alt="Ad Spend Autopsy">
+  </a>
+  <div class="nav-links">
+    <a href="/audit">Audit</a>
+    <a href="/calculator">Calculator</a>
+    <a href="/how-smart-bidding-works">Guide</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <span class="badge"><span class="d"></span> Free &middot; Private &middot; No sign-up</span>
+    <h1>See where your Google Ads spend leaked</h1>
+    <p class="lede">Drop in a Google Ads performance report, a campaign bulksheet, or both. Ad Spend Autopsy reads your real numbers and shows what to fix first — right in your browser.</p>
+    <div class="trust">
+      <span><span class="c">✓</span> Nothing uploaded</span>
+      <span><span class="c">✓</span> Results in seconds</span>
+      <span><span class="c">✓</span> Built on 14 years of PPC</span>
+    </div>
+  </header>
+
+  <div class="card upload" id="drop">
+    <p class="big">Drag your CSV here</p>
+    <p class="sub">or choose a file — add one, then the other</p>
+    <button class="btn" id="pick" type="button">Choose CSV file(s)</button>
+    <input type="file" id="file" accept=".csv,text/csv" multiple class="hidden">
+    <div class="slots">
+      <span class="slot" id="slot-perf"><span class="tick"></span> Performance report</span>
+      <span class="slot" id="slot-struct"><span class="tick"></span> Campaign bulksheet</span>
+    </div>
+    <p class="hint">Works best with a <b>Search Terms</b> or <b>Keyword</b> report (include Cost &amp; Conversions), or a <b>campaign bulksheet</b> with Match type or Bid strategy. Exact steps are in "How to export" below.</p>
+    <div class="subtle-actions">
+      <button class="link" id="sboth" type="button">See a stitched example</button>
+      <button class="link" id="sreset" type="button">Clear</button>
+    </div>
+    <p class="disc"><span class="dot"></span> Your files are never uploaded or sent anywhere.</p>
+  </div>
+
+  <section aria-label="How it works" class="steps">
+    <div class="step"><div class="n">1</div><h3>Export your report</h3><p>Download a Search Terms, Keyword or Campaign CSV, or a bulksheet from Google Ads Editor.</p></div>
+    <div class="step"><div class="n">2</div><h3>Drop it in</h3><p>Everything is parsed locally in your browser. Your account data never leaves your device.</p></div>
+    <div class="step"><div class="n">3</div><h3>See the leaks</h3><p>Get prioritised findings — wasted spend, broad-match, budget caps — and what to fix first.</p></div>
+  </section>
+
+  <details class="meth">
+    <summary>What this checks, and exactly how</summary>
+    <div class="tblwrap" style="margin:4px 0 14px"><table>
+      <thead><tr><th>Check</th><th>Needs these columns</th><th>Flags when</th><th>How it's computed</th></tr></thead>
+      <tbody>
+        <tr><td>Wasted spend</td><td>Cost, Conversions</td><td>Critical ≥30% of spend; Warning ≥15%</td><td>Sum cost of rows with Cost&gt;0 and Conversions=0; share = that ÷ total cost</td></tr>
+        <tr><td>Broad-match exposure</td><td>Match type (and/or + Cost, Conversions)</td><td>Structure: Critical ≥50%, Warning ≥25% of keywords broad. Performance: broad CPA &gt; 1.3× phrase/exact</td><td>Count keywords by match type; CPA = cost ÷ conversions per group; the two files merge into one finding</td></tr>
+        <tr><td>Maximize-clicks strategy</td><td>Bid strategy</td><td>Any campaign set to maximize clicks</td><td>Match the strategy text; annotate each with real spend + conversions when a performance file is loaded</td></tr>
+        <tr><td>Budget-capped campaigns</td><td>Search lost IS (budget)</td><td>Losing ≥10% impression share to budget</td><td>Dedupe to campaigns, take the max lost %; show daily budget when a bulksheet is loaded</td></tr>
+        <tr><td>Low conversion volume</td><td>Conversions</td><td>Fewer than 30 total in the file</td><td>Sum of conversions; below the learning-phase floor</td></tr>
+        <tr><td>Ad-group bloat</td><td>Ad group, Keyword, Match type</td><td>Any ad group with 20+ keywords</td><td>Group keyword rows by campaign ▸ ad group and count</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--muted);font-size:13px;margin:0 0 16px">Thresholds are deliberate rules of thumb for a fast read, not Google-official limits. Everything is computed from the rows in your file — nothing is estimated or fetched.</p>
+  </details>
+
+  <details>
+    <summary>How to export the right files from Google Ads</summary>
+    <ol>
+      <li><b>Search Terms report</b> (best for spend leaks): click the <b>Campaigns</b> icon in the left nav, then under <b>Insights and reports</b> open <b>Search terms</b>. Set your date range (last 30–90 days), click the <b>download icon</b> at the top right of the table, and choose <b>.csv</b>.</li>
+      <li><b>Keyword report:</b> <b>Campaigns</b> icon → <b>Audiences, keywords and content</b> → <b>Search keywords</b> → download icon → <b>.csv</b>. Match type is included by default; add <b>Search lost IS (budget)</b> from the columns tool if you want the budget-cap check.</li>
+      <li><b>Campaign report:</b> <b>Campaigns</b> icon → <b>Campaigns</b> → download icon → <b>.csv</b>. Make sure the Cost and Conversions columns are showing before you download.</li>
+      <li><b>Bulksheet (structure):</b> in <b>Google Ads Editor</b>, open the <b>Account</b> menu → <b>Export</b>, choose <b>whole account</b> (or selected campaigns), and export to CSV. In Editor <b>Settings</b>, turn on "Include original columns in CSV/ZIP exports" to keep performance data.</li>
+    </ol>
+    <p style="color:var(--muted);font-size:12.5px;margin:0 0 14px">Paths follow the current Google Ads interface. If something's moved, search "download search terms report" in Google Ads Help.</p>
+  </details>
+
+  <div id="err" class="err hidden"></div>
+  <div id="results">
+    <div id="summary"></div>
+    <div id="statbar"></div>
+    <div id="findings"><p class="empty">Load a file above to run the autopsy.</p></div>
+    <div id="tables"></div>
+  </div>
+
+  <section class="cta">
+    <h2>Found a leak? That's the easy part.</h2>
+    <p>This tool shows what's off. It can't tell you which fix matters most for your business, what the leak is really costing you in lost customers, or what to change first without breaking what works.</p>
+    <p class="lead">That's a 30-minute teardown with someone who's run accounts for 14 years. Send your results and I'll tell you where to start.</p>
+    <a class="cta-btn" href="https://instagram.com/adspendautopsy" target="_blank" rel="noopener">Get a teardown</a>
+    <p class="handle">DM @AdSpendAutopsy</p>
+  </section>
+
+  <section class="seo-copy">
+    <h2>A free Google Ads audit that respects your data</h2>
+    <p>Ad Spend Autopsy is a free, browser-based <b>Google Ads audit tool</b> that turns a raw CSV export into a clear picture of where your budget is being wasted. Instead of a generic checklist, it reads your actual <b>Search Terms, Keyword, Campaign</b> or bulksheet data and surfaces the issues that quietly drain PPC budgets — spend on zero-conversion search terms, over-exposure to <b>broad match</b>, campaigns stuck on Maximize clicks, budget caps throttling your winners, thin conversion volume, and bloated ad groups.</p>
+    <p>Because everything runs <b>client-side</b>, your account data never touches a server — making it safe to run on real client accounts. Use it as a fast directional self-check before a deeper review, then book a teardown if you want prioritised, business-specific fixes.</p>
+  </section>
+
+  <footer>Directional self-check, not a replacement for a full account review. Menu paths reflect Google Ads in 2026 and may change.</footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  function parseCSV(text){
+    var rows=[],row=[],field="",inQ=false,i=0,c;
+    while(i<text.length){ c=text[i];
+      if(inQ){ if(c==='"'){ if(text[i+1]==='"'){field+='"';i+=2;continue;} inQ=false;i++;continue; } field+=c;i++;continue; }
+      if(c==='"'){inQ=true;i++;continue;}
+      if(c===','){row.push(field);field="";i++;continue;}
+      if(c==='\r'){i++;continue;}
+      if(c==='\n'){row.push(field);rows.push(row);row=[];field="";i++;continue;}
+      field+=c;i++; }
+    if(field!==""||row.length){row.push(field);rows.push(row);}
+    return rows;
+  }
+  var fmtN=new Intl.NumberFormat("en-US");
+  function money(n){return (n<0?"-":"")+"$"+fmtN.format(Math.round(Math.abs(n)));}
+  function pct(n){return (Math.round(n*10)/10)+"%";}
+  function num(v){ if(v==null)return 0; var s=(""+v).replace(/[^0-9.\-]/g,""); if(s===""||s==="-")return 0; var f=parseFloat(s); return isNaN(f)?0:f; }
+  function esc(s){return (""+s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+  function findKey(h,cands){ for(var i=0;i<h.length;i++){ var s=h[i].toLowerCase().replace(/\s+/g," ").trim();
+    for(var j=0;j<cands.length;j++){ if(s===cands[j]||s.indexOf(cands[j])===0) return h[i]; } } return null; }
+  function detectHeaderRow(rows){ var tk=["campaign","search term","keyword","clicks","cost","impr","match type","bid strategy"];
+    for(var i=0;i<Math.min(rows.length,10);i++){ var j=rows[i].join(" ").toLowerCase();
+      for(var t=0;t<tk.length;t++){ if(j.indexOf(tk[t])>-1) return i; } } return 0; }
+
+  function analyzeFile(text){
+    var r0=parseCSV(text.trim()).filter(function(r){return r.length&&!(r.length===1&&r[0]==="");});
+    if(!r0||r0.length<2) throw new Error("That file didn't have enough rows to read.");
+    var hi=detectHeaderRow(r0), headers=r0[hi].map(function(x){return (""+x).trim();}), idx={};
+    headers.forEach(function(h,i){idx[h]=i;});
+    var rows=r0.slice(hi+1).filter(function(r){return r.length&&(""+(r[0]||"")).toLowerCase().trim().indexOf("total")!==0;});
+    function cell(r,k){return k?(r[idx[k]]||""):"";}
+    var K={campaign:findKey(headers,["campaign"]),adgroup:findKey(headers,["ad group"]),
+      keyword:findKey(headers,["search keyword","keyword"]),term:findKey(headers,["search term","search terms"]),
+      match:findKey(headers,["match type","keyword match type","criterion type"]),
+      cost:findKey(headers,["cost","spend"]),clicks:findKey(headers,["clicks"]),conv:findKey(headers,["conversions","conv."]),
+      lostbudget:findKey(headers,["search lost is (budget)","search lost impr. share (budget)","search lost is(budget)"]),
+      budget:findKey(headers,["campaign daily budget","daily budget","budget"]),
+      bidstrategy:findKey(headers,["bid strategy type","campaign bid strategy type","bid strategy"])};
+    var out={perf:null,struct:null};
+    if(K.cost&&K.conv) out.perf=performance(K,rows,cell);
+    if(K.match||K.budget||K.bidstrategy) out.struct=structure(K,rows,cell);
+    if(!out.perf&&!out.struct) throw new Error("Couldn't recognise this file. A performance report needs Cost + Conversions; a bulksheet needs Match type, Bid strategy or Campaign budget.");
+    return out;
+  }
+  function performance(K,rows,cell){
+    var label=K.term?"search term":(K.keyword?"keyword":(K.campaign?"campaign":"row")), nameKey=K.term||K.keyword||K.campaign;
+    var items=rows.map(function(r){return {name:(nameKey?(""+cell(r,nameKey)).trim():"")||"(unnamed)",
+      campaign:K.campaign?(""+cell(r,K.campaign)).trim():"",cost:num(cell(r,K.cost)),clicks:num(cell(r,K.clicks)),
+      conv:num(cell(r,K.conv)),match:K.match?(""+cell(r,K.match)).trim():"",lost:K.lostbudget?num(cell(r,K.lostbudget)):null};
+    }).filter(function(x){return x.cost>0||x.clicks>0||x.conv>0;});
+    if(!items.length) throw new Error("No spend rows found in that performance file.");
+    var totalCost=0,totalConv=0; items.forEach(function(x){totalCost+=x.cost;totalConv+=x.conv;});
+    var zero=items.filter(function(x){return x.cost>0&&x.conv===0;}), wasted=zero.reduce(function(s,x){return s+x.cost;},0);
+    var broad=items.filter(function(x){return /broad/i.test(x.match);}), nonBroad=items.filter(function(x){return x.match&&!/broad/i.test(x.match);});
+    function sum(a,f){return a.reduce(function(s,x){return s+x[f];},0);}
+    var campPerf={}; if(K.campaign) items.forEach(function(x){ if(!x.campaign)return;
+      campPerf[x.campaign]=campPerf[x.campaign]||{cost:0,conv:0,lost:0}; campPerf[x.campaign].cost+=x.cost;
+      campPerf[x.campaign].conv+=x.conv; if(x.lost!=null)campPerf[x.campaign].lost=Math.max(campPerf[x.campaign].lost,x.lost); });
+    return {label:label,items:items,totalCost:totalCost,totalConv:totalConv,zero:zero,wasted:wasted,
+      wastedPct:totalCost>0?wasted/totalCost*100:0,cpa:totalConv>0?totalCost/totalConv:null,hasMatch:!!K.match,
+      broadCost:sum(broad,"cost"),broadConv:sum(broad,"conv"),nbCost:sum(nonBroad,"cost"),nbConv:sum(nonBroad,"conv"),
+      hasLost:!!K.lostbudget,capped:items.filter(function(x){return x.lost!=null&&x.lost>=10;}),campPerf:campPerf};
+  }
+  function structure(K,rows,cell){
+    var campaigns={},budgets={},strategies={},groups={},kwTotal=0,broad=0,phrase=0,exact=0;
+    rows.forEach(function(r){ var camp=K.campaign?(""+cell(r,K.campaign)).trim():""; if(camp)campaigns[camp]=true;
+      if(K.budget){var b=num(cell(r,K.budget)); if(b>0&&camp&&budgets[camp]==null)budgets[camp]=b;}
+      if(K.bidstrategy){var s=(""+cell(r,K.bidstrategy)).trim(); if(s&&camp&&!strategies[camp])strategies[camp]=s;}
+      var kw=K.keyword?(""+cell(r,K.keyword)).trim():"", mt=K.match?(""+cell(r,K.match)).trim():"";
+      if(kw&&mt){ kwTotal++; if(/broad/i.test(mt))broad++;else if(/phrase/i.test(mt))phrase++;else if(/exact/i.test(mt))exact++;
+        if(K.adgroup){var ag=camp+" ▸ "+(""+cell(r,K.adgroup)).trim(); groups[ag]=(groups[ag]||0)+1;} } });
+    return {campaigns:Object.keys(campaigns),budgets:budgets,strategies:strategies,kwTotal:kwTotal,broad:broad,phrase:phrase,exact:exact,
+      broadPct:kwTotal>0?broad/kwTotal*100:0,maxclicks:Object.keys(strategies).filter(function(c){return /max.*click/i.test(strategies[c]);}),
+      groups:groups,bloated:Object.keys(groups).filter(function(g){return groups[g]>20;}).sort(function(a,b){return groups[b]-groups[a];}),
+      hasBudget:!!K.budget,hasStrategy:!!K.bidstrategy,hasMatch:!!K.match};
+  }
+
+  var PERF=null,STRUCT=null;
+  function setSlot(id,on){ var el=document.getElementById(id); el.classList.toggle("on",on); el.querySelector(".tick").textContent=on?"✓":""; }
+
+  function buildFindings(){
+    var F=[];
+    if(PERF){ if(PERF.wasted>0){ var sv=PERF.wastedPct>=30?"crit":(PERF.wastedPct>=15?"warn":"ok");
+        F.push({sev:sv,sevl:sv==="ok"?"Minor":(sv==="warn"?"Warning":"Critical"),
+          t:pct(PERF.wastedPct)+" of spend went to "+PERF.label+"s with zero conversions",
+          p:money(PERF.wasted)+" across "+PERF.zero.length+" "+PERF.label+"s produced no tracked conversion.",
+          fix:PERF.label==="search term"?"<b>Add the junk as negative keywords.</b> If new junk appears daily, it's a match-type problem — tighten to phrase/exact.":"<b>Pause or rework the "+PERF.label+"s spending with no return</b> and read your Search Terms report to see what they match."});
+      } else { F.push({sev:"ok",sevl:"Clean",t:"No obvious zero-conversion spend",p:"Every "+PERF.label+" with spend recorded at least one conversion.",fix:"Confirm those are <b>real actions</b> (sale/booking/qualified call), not directions clicks or short calls."}); } }
+    var bf=broadFinding(); if(bf)F.push(bf);
+    if(STRUCT&&STRUCT.hasStrategy&&STRUCT.maxclicks.length){
+      var ann=STRUCT.maxclicks.map(function(c){ if(PERF&&PERF.campPerf[c]){var cp=PERF.campPerf[c]; return esc(c)+" ("+money(cp.cost)+", "+fmtN.format(Math.round(cp.conv))+" conv)";} return esc(c);});
+      F.push({sev:"warn",sevl:"Warning",stitch:PERF&&STRUCT.maxclicks.some(function(c){return PERF.campPerf[c];}),
+        t:STRUCT.maxclicks.length+" campaign"+(STRUCT.maxclicks.length>1?"s":"")+" on Maximize clicks",
+        p:"Maximize clicks buys the cheapest clicks, not outcomes: "+ann.slice(0,3).join(", ")+(ann.length>3?"…":"")+".",
+        fix:"<b>Only right before you have conversion data.</b> Once conversions are tracked, switch to a conversion-based strategy."}); }
+    if(PERF&&PERF.hasLost&&PERF.capped.length){
+      var capMap={}; PERF.capped.forEach(function(x){var c=x.campaign||x.name; if(capMap[c]==null||x.lost>capMap[c])capMap[c]=x.lost;});
+      var cc=Object.keys(capMap), names=cc.map(function(c){var b=(STRUCT&&STRUCT.budgets[c]!=null)?" — "+money(STRUCT.budgets[c])+"/day":""; return esc(c)+" ("+pct(capMap[c])+" lost"+b+")";});
+      F.push({sev:"warn",sevl:"Warning",stitch:STRUCT&&cc.some(function(c){return STRUCT.budgets[c]!=null;}),
+        t:cc.length+" campaign"+(cc.length>1?"s":"")+" capped by budget",
+        p:"Losing impression share to budget: "+names.slice(0,3).join(", ")+(names.length>3?"…":"")+". They'd serve more if funded.",
+        fix:"<b>Fund proven winners properly</b> instead of spreading a thin budget thin."}); }
+    if(PERF&&PERF.totalConv<30){ F.push({sev:"warn",sevl:"Warning",t:"Very low conversion volume",
+      p:"Only "+fmtN.format(Math.round(PERF.totalConv))+" conversions here. Automated bidding needs tens per campaign per week to learn, and you need that volume before any day-to-day number means anything.",
+      fix:"<b>Don't react to small swings</b> — at this volume a good day and a bad day is mostly randomness. Consolidate budget into fewer, tighter campaigns."}); }
+    if(STRUCT&&STRUCT.bloated.length){ F.push({sev:"warn",sevl:"Warning",
+      t:STRUCT.bloated.length+" ad group"+(STRUCT.bloated.length>1?"s":"")+" with 20+ keywords",
+      p:"Over-stuffed ad groups can't match one tight message to the search. Worst: "+esc(STRUCT.bloated[0])+" ("+STRUCT.groups[STRUCT.bloated[0]]+").",
+      fix:"<b>Split into tighter themes</b> — fewer keywords per group, each with ad copy that mirrors the search."}); }
+    var order={crit:0,warn:1,ok:2};
+    return F.filter(Boolean).sort(function(x,y){return order[x.sev]-order[y.sev];});
+  }
+
+  function broadFinding(){
+    var sHas=STRUCT&&STRUCT.hasMatch&&STRUCT.kwTotal, pHas=PERF&&PERF.hasMatch&&PERF.broadCost>0;
+    if(!sHas&&!pHas)return null;
+    var bCpa=pHas&&PERF.broadConv>0?PERF.broadCost/PERF.broadConv:null, nCpa=pHas&&PERF.nbConv>0?PERF.nbCost/PERF.nbConv:null;
+    var worse=(bCpa!=null&&nCpa!=null&&bCpa>nCpa*1.3), share=pHas&&PERF.totalCost>0?PERF.broadCost/PERF.totalCost*100:0;
+    if(sHas&&pHas){ var sev=STRUCT.broadPct>=50||worse?"crit":"warn";
+      return {sev:sev,sevl:sev==="crit"?"Critical":"Warning",stitch:true,
+        t:pct(STRUCT.broadPct)+" of keywords are broad match, and broad spend "+(worse?"converts worse":"runs at "+pct(share)+" of cost"),
+        p:fmtN.format(STRUCT.broad)+" of "+fmtN.format(STRUCT.kwTotal)+" keywords are broad. Broad CPA "+(bCpa==null?"(no conversions)":money(bCpa))+" vs "+(nCpa==null?"n/a":money(nCpa))+" on phrase/exact."+(worse?" It's not just exposure — it's costing more per conversion.":""),
+        fix:"<b>Tighten to phrase/exact around real buyer terms</b>, and keep broad only where the data shows it converts."}; }
+    if(sHas){ var s2=STRUCT.broadPct>=50?"crit":(STRUCT.broadPct>=25?"warn":"ok");
+      return {sev:s2,sevl:s2==="ok"?"Note":(s2==="warn"?"Warning":"Critical"),
+        t:pct(STRUCT.broadPct)+" of your keywords are broad match",
+        p:fmtN.format(STRUCT.broad)+" broad, "+fmtN.format(STRUCT.phrase)+" phrase, "+fmtN.format(STRUCT.exact)+" exact. No negative list fully contains broad.",
+        fix:STRUCT.broadPct>=25?"<b>Tighten to phrase/exact.</b> If you add negatives daily and they never stop, this is why. Load a performance report too to see what it costs.":"<b>Keep broad on a short leash.</b>"}; }
+    return {sev:worse?"warn":(share>50?"warn":"ok"),sevl:worse?"Warning":(share>50?"Warning":"Note"),
+      t:pct(share)+" of spend is on broad match"+(worse?" — converting worse":""),
+      p:"Broad CPA "+(bCpa==null?"(no conversions)":money(bCpa))+" vs "+(nCpa==null?"n/a":money(nCpa))+" on phrase/exact."+(worse?" Broad costs more per conversion.":""),
+      fix:worse?"<b>Shift budget to phrase/exact</b>; keep broad only where it proves it converts. Load a bulksheet to see how many keywords are broad.":"<b>Judge broad on CPA, not CPC.</b>"};
+  }
+
+  function render(){
+    setSlot("slot-perf",!!PERF); setSlot("slot-struct",!!STRUCT);
+    var sum=document.getElementById("summary"), sb=document.getElementById("statbar"),
+        fd=document.getElementById("findings"), tb=document.getElementById("tables");
+    if(!PERF&&!STRUCT){ sum.innerHTML=""; sb.innerHTML=""; tb.innerHTML="";
+      fd.innerHTML='<p class="empty">Load a file above to run the autopsy.</p>'; return; }
+
+    var F=buildFindings();
+    var nCrit=F.filter(function(f){return f.sev==="crit";}).length, nWarn=F.filter(function(f){return f.sev==="warn";}).length;
+
+    // summary
+    var big,label,sub;
+    if(PERF){ big=money(PERF.wasted); label="Estimated wasted spend"; sub=pct(PERF.wastedPct)+" of "+money(PERF.totalCost)+" total"; }
+    else { big=pct(STRUCT.broadPct); label="Keywords on broad match"; sub=fmtN.format(STRUCT.broad)+" of "+fmtN.format(STRUCT.kwTotal)+" keywords"; }
+    var pills="";
+    if(nCrit)pills+='<span class="ipill crit"><span class="d"></span>'+nCrit+" critical</span>";
+    if(nWarn)pills+='<span class="ipill warn"><span class="d"></span>'+nWarn+" warning"+(nWarn>1?"s":"")+"</span>";
+    if(!nCrit&&!nWarn)pills+='<span class="ipill ok"><span class="d"></span>Looks clean</span>';
+    sum.innerHTML='<div class="summary"><div><p class="sum-label">'+label+'</p><p class="sum-big'+(PERF&&PERF.wastedPct>=15?" bad":"")+'">'+big+'</p><p class="sum-sub">'+sub+'</p></div><div class="ipills">'+pills+'</div></div>';
+
+    // stat bar
+    var S=[];
+    if(PERF){ S.push(['Spend',money(PERF.totalCost)]); S.push(['Conversions',fmtN.format(Math.round(PERF.totalConv*10)/10)]); S.push(['Cost / conv.',PERF.cpa==null?"—":money(PERF.cpa)]); }
+    if(STRUCT){ S.push(['Campaigns',fmtN.format(STRUCT.campaigns.length)]); if(STRUCT.kwTotal)S.push(['Keywords',fmtN.format(STRUCT.kwTotal)]);
+      if(STRUCT.hasMatch&&STRUCT.kwTotal&&!PERF)S.push(['Broad',pct(STRUCT.broadPct)]); }
+    sb.innerHTML=S.length?'<div class="statbar">'+S.map(function(s){return '<div class="stat"><span class="sv">'+s[1]+'</span><span class="sk">'+s[0]+'</span></div>';}).join("")+'</div>':"";
+
+    // findings
+    fd.innerHTML='<p class="h-sec">Findings</p>'+F.map(function(f){
+      return '<div class="finding"><div class="f-head"><span class="sdot '+f.sev+'"></span><span class="slabel '+f.sev+'">'+f.sevl+'</span>'+
+        (f.stitch?'<span class="stitchtag">Stitched</span>':'')+'</div><h3>'+f.t+'</h3><p>'+f.p+'</p>'+
+        '<p class="fix"><span class="tag">Fix</span>'+f.fix+'</p></div>';
+    }).join("");
+
+    // tables
+    var html="";
+    if(PERF){ var top=PERF.zero.slice().sort(function(x,y){return y.cost-x.cost;}).slice(0,8);
+      if(top.length) html+='<p class="h-sec">Biggest money pits</p><div class="tblwrap"><table><thead><tr><th>'+cap(PERF.label)+'</th><th>Spend</th><th>Clicks</th><th>Conv.</th></tr></thead><tbody>'+
+        top.map(function(x){return '<tr><td>'+esc(x.name)+'</td><td>'+money(x.cost)+'</td><td>'+fmtN.format(Math.round(x.clicks))+'</td><td>0</td></tr>';}).join("")+'</tbody></table></div>'; }
+    if(STRUCT&&(STRUCT.hasBudget||STRUCT.hasStrategy)){
+      html+='<p class="h-sec">Campaigns</p><div class="tblwrap"><table><thead><tr><th>Campaign</th><th>Daily budget</th><th>Spend</th><th>Conv.</th><th style="text-align:left">Bid strategy</th></tr></thead><tbody>'+
+        STRUCT.campaigns.slice(0,15).map(function(c){ var cp=PERF&&PERF.campPerf[c];
+          return '<tr><td>'+esc(c)+'</td><td>'+(STRUCT.budgets[c]!=null?money(STRUCT.budgets[c])+"/day":"—")+'</td><td>'+(cp?money(cp.cost):"—")+'</td><td>'+(cp?fmtN.format(Math.round(cp.conv)):"—")+'</td><td style="text-align:left">'+esc(STRUCT.strategies[c]||"—")+'</td></tr>'; }).join("")+'</tbody></table></div>'; }
+    tb.innerHTML=html;
+  }
+
+  function ingest(text){ var r=analyzeFile(text); if(r.perf)PERF=r.perf; if(r.struct)STRUCT=r.struct;
+    document.getElementById("err").classList.add("hidden"); render(); }
+  function run(text){ try{ ingest(text); }catch(e){ var el=document.getElementById("err");
+    el.textContent=e.message||"Couldn't read that file."; el.classList.remove("hidden");
+    el.scrollIntoView({behavior:"smooth",block:"center"}); } }
+
+  var fileInput=document.getElementById("file");
+  document.getElementById("pick").addEventListener("click",function(){fileInput.click();});
+  function readFiles(list){ Array.prototype.forEach.call(list,function(f){ var rd=new FileReader(); rd.onload=function(){run(rd.result);}; rd.readAsText(f); }); }
+  fileInput.addEventListener("change",function(e){readFiles(e.target.files);});
+  var drop=document.getElementById("drop");
+  ["dragenter","dragover"].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.style.borderColor="var(--teal)";});});
+  ["dragleave","drop"].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.style.borderColor="";});});
+  drop.addEventListener("drop",function(e){readFiles(e.dataTransfer.files);});
+  document.getElementById("sreset").addEventListener("click",function(){PERF=null;STRUCT=null;document.getElementById("err").classList.add("hidden");render();window.scrollTo({top:0,behavior:"smooth"});});
+
+  var SAMPLE_PERF=[
+    "Campaign,Search term,Match type,Clicks,Impr.,Cost,Conversions,Search lost IS (budget)",
+    "Search - Plumbing,emergency plumber near me,Exact,120,1400,540.00,9,2%",
+    "Search - Plumbing,blocked drain repair,Phrase,86,990,372.00,6,2%",
+    "Search - Plumbing,plumber salary,Broad,74,2100,201.00,0,2%",
+    "Search - Plumbing,how to fix a leaking tap,Broad,133,4200,318.00,0,2%",
+    "Search - Drains,plumbing course online,Broad,58,1600,142.00,0,34%",
+    "Search - Drains,drain repair cost,Broad,70,2600,168.00,1,34%",
+    "Search - Plumbing,24 hour plumber,Exact,64,720,352.00,5,2%",
+    "Brand,my plumbing co,Exact,40,500,60.00,7,0%",
+    "Search - Drains,diy drain cleaning,Broad,47,1300,119.00,0,34%"
+  ].join("\n");
+  var SAMPLE_STRUCT=[
+    "Campaign,Ad group,Keyword,Match type,Campaign Daily Budget,Bid strategy type",
+    "Search - Plumbing,Emergency,emergency plumber,Exact,40,Maximize conversions",
+    "Search - Plumbing,General,plumber,Broad,40,Maximize conversions",
+    "Search - Plumbing,General,plumbing,Broad,40,Maximize conversions",
+    "Search - Plumbing,General,local plumber,Broad,40,Maximize conversions",
+    "Search - Plumbing,General,plumber near me,Broad,40,Maximize conversions",
+    "Search - Drains,Drains,blocked drain,Phrase,15,Maximize clicks",
+    "Search - Drains,Drains,drain repair,Broad,15,Maximize clicks",
+    "Brand,Brand,my plumbing co,Exact,5,Maximize clicks"
+  ].join("\n");
+  document.getElementById("sboth").addEventListener("click",function(){PERF=null;STRUCT=null;run(SAMPLE_PERF);run(SAMPLE_STRUCT);window.scrollTo({top:document.getElementById("summary").offsetTop-70,behavior:"smooth"});});
+
+  run(SAMPLE_PERF); run(SAMPLE_STRUCT);
+})();
+</script>
+</body>
+</html>

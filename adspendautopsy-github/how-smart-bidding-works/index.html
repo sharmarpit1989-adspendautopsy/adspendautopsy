@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K1V146SCTV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K1V146SCTV');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Primary SEO -->
+<title>How Does Google Smart Bidding Actually Work? (And When It Won't) | Ad Spend Autopsy</title>
+<meta name="description" content="A plain-English guide to how Google Smart Bidding works, why it needs enough conversions to learn, and how to tell if your account is ready — including what to do when Smart Bidding doesn't have enough conversions.">
+<meta name="keywords" content="how does Google Smart Bidding work, smart bidding not enough conversions, Google Ads learning phase, automated bidding, Maximize conversions, target CPA">
+<meta name="author" content="Ad Spend Autopsy">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0f7052">
+<link rel="canonical" href="https://www.adspendautopsy.com/how-smart-bidding-works">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Ad Spend Autopsy">
+<meta property="og:title" content="How Does Google Smart Bidding Actually Work? (And When It Won't)">
+<meta property="og:description" content="Smart Bidding works brilliantly — once your account feeds it enough conversions. Here's how it works under the hood, and how to know if yours is ready.">
+<meta property="og:url" content="https://www.adspendautopsy.com/how-smart-bidding-works">
+<meta property="og:image" content="https://www.adspendautopsy.com/images/smart-bidding-hero.png">
+<meta property="og:image:alt" content="Google Smart Bidding explained — how automated bidding works and when it needs enough data.">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Does Google Smart Bidding Actually Work? (And When It Won't)">
+<meta name="twitter:description" content="How Smart Bidding works under the hood, why small accounts stall in the learning phase, and how to tell if yours is ready.">
+<meta name="twitter:image" content="https://www.adspendautopsy.com/images/smart-bidding-hero.png">
+
+<link rel="icon" href="/logo-light.png">
+<link rel="apple-touch-icon" href="/logo-light.png">
+
+<!-- Article structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How Does Google Smart Bidding Actually Work? (And When It Won't Work for You)",
+  "description": "A plain-English guide to how Google Smart Bidding works, why it needs enough conversions to learn, and how to tell if your account is ready.",
+  "image": "https://www.adspendautopsy.com/images/smart-bidding-hero.png",
+  "datePublished": "2026-11-06",
+  "dateModified": "2026-11-06",
+  "author": { "@type": "Organization", "name": "Ad Spend Autopsy", "url": "https://www.adspendautopsy.com/" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ad Spend Autopsy",
+    "logo": { "@type": "ImageObject", "url": "https://www.adspendautopsy.com/logo-light.png" }
+  },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.adspendautopsy.com/how-smart-bidding-works" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf9f7; --surface:#ffffff; --ink:#201d1a; --ink-2:#4f4b45; --muted:#8f8b83;
+  --teal:#0f7052; --teal-ink:#0a5a42; --teal-soft:#e9f4ef;
+  --line:#edece7; --line-2:#e0ded7;
+  --crit:#c0442a; --crit-soft:#fbeee9; --warn:#a9790f; --warn-soft:#f8f1df; --ok:#1b7a4d; --ok-soft:#e8f4ec;
+  --shadow:0 1px 2px rgba(30,25,20,.04), 0 4px 16px rgba(30,25,20,.05);
+  --shadow-sm:0 1px 2px rgba(30,25,20,.05);
+  --font:"Rubik",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141619; --surface:#1d2024; --ink:#f1f1ef; --ink-2:#c3c1b9; --muted:#8a877f;
+  --teal:#2ec08c; --teal-ink:#5dcaa5; --teal-soft:#15302a;
+  --line:#2a2d33; --line-2:#3a3d44;
+  --crit:#f0a088; --crit-soft:#321d17; --warn:#e6b85f; --warn-soft:#2c2512; --ok:#6fd49a; --ok-soft:#142f22;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141619; --surface:#1d2024; --ink:#f1f1ef; --ink-2:#c3c1b9; --muted:#8a877f;
+  --teal:#2ec08c; --teal-ink:#5dcaa5; --teal-soft:#15302a;
+  --line:#2a2d33; --line-2:#3a3d44;
+  --crit:#f0a088; --crit-soft:#321d17; --warn:#e6b85f; --warn-soft:#2c2512; --ok:#6fd49a; --ok-soft:#142f22;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.65;font-size:16px;
+  -webkit-font-smoothing:antialiased}
+
+/* Nav / footer — matches homepage */
+.nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:760px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav a.brand{display:inline-flex;align-items:center}
+.nav img{height:30px;width:auto}
+.nav .logo-light{display:block}
+.nav .logo-dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nav .logo-light{display:none}
+  :root:not([data-theme="light"]) .nav .logo-dark{display:block}}
+:root[data-theme="dark"] .nav .logo-light{display:none}
+:root[data-theme="dark"] .nav .logo-dark{display:block}
+.nav-tag{color:var(--muted);font-size:13px;font-weight:500;white-space:nowrap}
+
+.wrap{max-width:720px;margin:0 auto;padding:36px 20px 72px}
+
+/* Article */
+.eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-ink);margin:0 0 12px}
+h1{font-weight:800;font-size:33px;line-height:1.14;margin:0 0 14px;letter-spacing:-.02em;text-wrap:balance}
+.byline{color:var(--muted);font-size:13.5px;margin:0 0 26px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.byline .sep{opacity:.5}
+article h2{font-weight:800;font-size:21px;line-height:1.25;letter-spacing:-.015em;margin:40px 0 14px;text-wrap:balance}
+article p{margin:0 0 18px;color:var(--ink-2)}
+article p strong{color:var(--ink);font-weight:600}
+article em{font-style:italic}
+
+/* Image placeholder */
+.img-ph{margin:8px 0 10px;border:1.5px dashed var(--line-2);border-radius:16px;background:
+  linear-gradient(135deg,var(--teal-soft),transparent 70%),var(--surface);
+  min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  text-align:center;padding:28px 22px}
+.img-ph .lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-ink)}
+.img-ph .alt{font-size:13.5px;color:var(--muted);max-width:38em}
+figure{margin:0 0 22px}
+figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
+
+/* Diagrams */
+.fig-wrap{margin:26px 0;padding:22px 18px;background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;box-shadow:var(--shadow-sm)}
+.fig-wrap.center{border-color:color-mix(in srgb,var(--teal) 28%,var(--line));box-shadow:var(--shadow)}
+.fig-title{font-weight:600;font-size:15px;margin:0 0 4px;text-align:center}
+.fig-sub{font-size:12.5px;color:var(--muted);text-align:center;margin:0 0 14px}
+svg.dia{display:block;width:100%;height:auto;max-width:100%;margin:0 auto}
+.dnode{fill:var(--teal-soft);stroke:var(--teal);stroke-width:1.5}
+.dq{fill:var(--teal-soft);stroke:var(--teal);stroke-width:2}
+.dout{fill:var(--surface);stroke:var(--line-2);stroke-width:1.25}
+.bar-crit{fill:var(--crit)} .bar-warn{fill:var(--warn)} .bar-ok{fill:var(--ok)}
+.dtxt{fill:var(--ink);font-weight:600}
+.dtxt-n{fill:var(--ink-2);font-weight:400}
+.dconn{fill:none;stroke:var(--muted);stroke-width:1.4}
+.dlabel{fill:var(--muted);font-weight:600}
+.arrow-fill{fill:var(--muted)}
+
+/* Listicle cards */
+.buckets{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 24px}
+@media (max-width:620px){.buckets{grid-template-columns:1fr}}
+.bucket{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 18px;box-shadow:var(--shadow-sm)}
+.bi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin:0 0 12px}
+.bi.ok{background:var(--ok-soft)} .bi.warn{background:var(--warn-soft)} .bi.crit{background:var(--crit-soft)}
+.bi svg{width:19px;height:19px}
+.bucket h3{font-size:16px;font-weight:600;margin:0 0 5px}
+.bucket p{font-size:13.5px;color:var(--ink-2);margin:0;line-height:1.55}
+
+/* Comparison table */
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);
+  background:var(--surface);margin:8px 0 24px}
+table.cmp{border-collapse:collapse;width:100%;font-size:14px}
+table.cmp th,table.cmp td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp thead th{font-weight:600;background:var(--teal-soft);color:var(--teal-ink);font-size:13.5px;white-space:nowrap}
+table.cmp thead th:first-child{background:var(--surface);color:var(--muted)}
+table.cmp tbody th{font-weight:500;color:var(--ink);white-space:nowrap;background:color-mix(in srgb,var(--bg) 60%,var(--surface))}
+table.cmp td{color:var(--ink-2)}
+table.cmp tr:last-child th,table.cmp tr:last-child td{border-bottom:none}
+
+/* CTA */
+.cta{margin-top:40px;border-radius:18px;background:var(--teal-soft);
+  border:1px solid color-mix(in srgb,var(--teal) 22%,transparent);padding:28px 26px}
+.cta h2{font-weight:800;font-size:20px;margin:0 0 8px;letter-spacing:-.01em}
+.cta p{color:var(--ink-2);margin:0 0 4px}
+.cta a.cta-btn{display:inline-block;margin-top:14px;background:var(--teal);color:#fff;text-decoration:none;
+  font-weight:500;font-size:15px;padding:12px 24px;border-radius:10px;box-shadow:var(--shadow-sm)}
+.cta a.cta-btn:hover{filter:brightness(1.05)}
+
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;text-align:center}
+
+.nav .brand{display:inline-flex;align-items:center}
+.nav-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--ink-2);text-decoration:none;font-size:14px;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+@media (max-width:480px){.nav-links{gap:12px}.nav-links a{font-size:13px}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a class="brand" href="/" aria-label="Ad Spend Autopsy home">
+    <img class="logo-light" src="/logo-light.png" alt="Ad Spend Autopsy">
+    <img class="logo-dark" src="/logo-dark.png" alt="Ad Spend Autopsy">
+  </a>
+  <div class="nav-links">
+    <a href="/audit">Audit</a>
+    <a href="/calculator">Calculator</a>
+    <a href="/how-smart-bidding-works">Guide</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+<article>
+  <p class="eyebrow">Google Ads · Automated bidding</p>
+  <h1>How Does Google Smart Bidding Actually Work? (And When It Won't Work for You)</h1>
+  <p class="byline"><span>Ad Spend Autopsy</span><span class="sep">·</span><span>6 Nov 2026</span><span class="sep">·</span><span>7 min read</span></p>
+
+  <figure>
+    <img src="/images/smart-bidding-hero.png" alt="Google Smart Bidding explained — how automated bidding works and when it needs enough data." style="width:100%;height:auto;border-radius:16px;display:block">
+  </figure>
+
+  <p>We're all living in the age of AI, and long before it made its way into regular life, it was already dominant in the ad-tech space. Google launched its Smart Bidding strategies to help advertisers get the most value out of their ad spend — a genuinely useful intent.</p>
+  <p>Except advertisers, to this day, keep struggling to use these strategies effectively. The thing that was supposed to make life easier — for an SMB owner looking after their own Google Ads, or a PPC specialist taking over a client's account — often becomes the thing that quietly burns their money. It's not that the help docs are unclear, and it's not some hidden agenda. Like most things, the illusion fades once you understand what's running under the hood.</p>
+  <p>So let's do two things. First, unpack what these strategies actually do and how they work functionally (I'm not claiming to know Google's exact math). Then, look at how to actually get the best out of them.</p>
+
+  <h2>First, pretend automation doesn't exist</h2>
+  <p>Forget, for a moment, that any bidding automation exists — imagine only manual CPC is available. You, the advertiser, set the bids for your keywords, and Google uses those bids to enter you into auctions that are relevant to you.</p>
+  <p>Traditionally it looks like this:</p>
+
+  <div class="fig-wrap">
+    <p class="fig-title">The manual bidding loop</p>
+    <p class="fig-sub">Set a bid → enter the auction → win a slot → pay on the click → (if tracking is live) record the conversion</p>
+    <svg class="dia" viewBox="0 0 840 240" role="img" aria-label="Manual bidding funnel: set your bid, enter the auction, win an ad slot, pay when someone clicks, then conversion tracked when the tag fires." font-size="15">
+      <defs>
+        <marker id="fun-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="arrow-fill"/></marker>
+      </defs>
+      <!-- connectors -->
+      <g class="dconn">
+        <line x1="195" y1="60" x2="223" y2="60" marker-end="url(#fun-arrow)"/>
+        <line x1="400" y1="60" x2="428" y2="60" marker-end="url(#fun-arrow)"/>
+        <line x1="605" y1="60" x2="633" y2="60" marker-end="url(#fun-arrow)"/>
+        <path d="M722 88 L722 148" marker-end="url(#fun-arrow)"/>
+      </g>
+      <!-- nodes -->
+      <rect class="dnode" x="20" y="32" width="175" height="56" rx="11"/>
+      <text class="dtxt" x="107" y="65" text-anchor="middle">Set your bid</text>
+      <rect class="dnode" x="225" y="32" width="175" height="56" rx="11"/>
+      <text class="dtxt" x="312" y="65" text-anchor="middle">Enter the auction</text>
+      <rect class="dnode" x="430" y="32" width="175" height="56" rx="11"/>
+      <text class="dtxt" x="517" y="65" text-anchor="middle">Win an ad slot</text>
+      <rect class="dnode" x="635" y="32" width="175" height="56" rx="11"/>
+      <text class="dtxt" x="722" y="65" text-anchor="middle">Pay on click</text>
+      <rect class="dout" x="610" y="150" width="224" height="62" rx="11"/>
+      <rect class="bar-ok" x="610" y="150" width="5" height="62"/>
+      <text class="dtxt" x="727" y="176" text-anchor="middle">Conversion tracked</text>
+      <text class="dtxt-n" x="727" y="196" text-anchor="middle" font-size="13">(tag fires)</text>
+    </svg>
+  </div>
+
+  <p>You set bids on a set of keywords, you participate in auctions, you win an ad slot, and you pay when someone clicks your ad. Like a smart advertiser, you'd also have set up conversion tracking on your site, so Google knows when a click turns into a real business action — through a conversion tag (the "pixel," in old-school terms, though that word really belongs to the Meta side).</p>
+  <p>Over the next few days you collect performance data. By the end of the week, you'd notice three kinds of keywords:</p>
+
+  <div class="buckets">
+    <div class="bucket">
+      <div class="bi ok"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h7v7"/></svg></div>
+      <h3>The winners</h3>
+      <p>Keywords driving lots of conversions. You'd raise bids here to compete harder for them.</p>
+    </div>
+    <div class="bucket">
+      <div class="bi warn"><svg viewBox="0 0 24 24" fill="none" stroke="var(--warn)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="17" x2="14" y2="17"/></svg></div>
+      <h3>The expensive maybes</h3>
+      <p>Keywords that convert, but not efficiently. You'd hold bids and keep an eye on the cost.</p>
+    </div>
+    <div class="bucket">
+      <div class="bi crit"><svg viewBox="0 0 24 24" fill="none" stroke="var(--crit)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7l-6 6-4-4-8 8"/><path d="M10 17H3v-7"/></svg></div>
+      <h3>The money pits</h3>
+      <p>Keywords that spent and brought zero conversions. You'd cut bids to stop the bleed.</p>
+    </div>
+  </div>
+
+  <p>Repeat that for a month, a quarter, a year, and you'd eventually learn something subtle: for some keywords, a bid above a certain value turns a profitable keyword into a losing one. You develop a feel for each keyword's ceiling.</p>
+
+  <h2>Now, Smart Bidding automates that entire loop</h2>
+  <p>Smart Bidding turns that whole manual process into a self-learning algorithm. Because it can see patterns across an enormous volume of past auctions and conversions — plus live signals about each specific searcher (device, location, time of day, likely intent, audience) and your Ad Rank — it can estimate a sensible bid for each individual auction.</p>
+  <p>Here's the difference that matters: manually, you were entering every auction with the same bid value — and that could be millions of auctions over a week. Smart Bidding doesn't make you guess one number for all of them. It sets a different bid for each auction, constantly, based on how likely that specific click is to convert.</p>
+
+  <div class="tblwrap">
+    <table class="cmp">
+      <thead><tr><th></th><th>Manual CPC</th><th>Smart Bidding</th></tr></thead>
+      <tbody>
+        <tr><th>Who sets the bid</th><td>You, per keyword</td><td>Google, per auction</td></tr>
+        <tr><th>How often bids change</th><td>When you log in and edit</td><td>Every auction, in real time</td></tr>
+        <tr><th>What it reacts to</th><td>Your weekly review</td><td>Live signals: device, location, time, intent, audience…</td></tr>
+        <tr><th>What it needs from you</th><td>Time and attention</td><td>Conversion data — and enough of it</td></tr>
+        <tr><th>Where it falls apart</th><td>You don't have time to optimise</td><td>You don't have enough conversions to learn from</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>But bidding automatically isn't the same as bidding profitably</h2>
+  <p>This is where most of the struggle actually lives.</p>
+  <p>It's one thing to set bids automatically, and another to do it profitably. For the algorithm to predict which clicks are worth more, it needs to see the full chain — impression → click → conversion — happen enough times to find a pattern. And <strong>"enough"</strong> is the key word.</p>
+  <p>Any statistical system needs a minimum number of observations before its predictions mean anything. It's the same reason you wouldn't judge a coin as rigged after three flips. Below that threshold, the system isn't learning your account — it's guessing, and the guesses swing wildly. This is the "learning phase" you'll see Google mention, and it's the quiet reason so many smaller accounts feel like Smart Bidding "stopped working" or "never worked."</p>
+
+  <figure class="fig-wrap center">
+    <p class="fig-title">Is your account ready for Smart Bidding?</p>
+    <p class="fig-sub">Two checks decide whether automation can actually learn</p>
+    <svg class="dia" viewBox="0 0 600 724" role="img" aria-label="Decision flow. First: is conversion tracking set up and firing correctly? If no, fix that first. If yes: how many conversions per month? Under about 15, not yet — run Maximize Clicks or manual CPC and build volume. About 15 to 30, borderline — start a conversion strategy but expect noisy weeks. 30 or more, good to go." font-size="14">
+      <defs>
+        <marker id="flo-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="arrow-fill"/></marker>
+      </defs>
+
+      <!-- connectors -->
+      <g class="dconn">
+        <!-- Q1 -> No -> OutcomeA -->
+        <line x1="300" y1="96" x2="300" y2="148" marker-end="url(#flo-arrow)"/>
+        <!-- Yes bypass (left) Q1 -> Q2 -->
+        <path d="M85 96 L85 336 L48 336" marker-end="url(#flo-arrow)"/>
+        <!-- Q2 -> trunk -> B/C/D -->
+        <path d="M300 372 L300 392 L85 392 L85 660"/>
+        <line x1="85" y1="460" x2="98" y2="460" marker-end="url(#flo-arrow)"/>
+        <line x1="85" y1="560" x2="98" y2="560" marker-end="url(#flo-arrow)"/>
+        <line x1="85" y1="660" x2="98" y2="660" marker-end="url(#flo-arrow)"/>
+      </g>
+
+      <!-- branch labels -->
+      <text class="dlabel" x="312" y="126" font-size="12.5">No</text>
+      <text class="dlabel" x="92" y="130" font-size="12.5">Yes</text>
+      <text class="dlabel" x="78" y="456" font-size="12" text-anchor="end">Under ~15</text>
+      <text class="dlabel" x="78" y="556" font-size="12" text-anchor="end">~15–30</text>
+      <text class="dlabel" x="78" y="656" font-size="12" text-anchor="end">30+</text>
+
+      <!-- Q1 -->
+      <rect class="dq" x="50" y="24" width="500" height="72" rx="13"/>
+      <text class="dtxt" x="300" y="54" text-anchor="middle">Is conversion tracking set up</text>
+      <text class="dtxt" x="300" y="76" text-anchor="middle">and firing correctly?</text>
+
+      <!-- Outcome A (crit) -->
+      <rect class="dout" x="100" y="148" width="400" height="86" rx="12"/>
+      <rect class="bar-crit" x="100" y="148" width="5" height="86"/>
+      <text class="dtxt" x="120" y="178">Fix that first.</text>
+      <text class="dtxt-n" x="120" y="200" font-size="13">Every automated strategy is blind without</text>
+      <text class="dtxt-n" x="120" y="219" font-size="13">it — you'd be optimising toward nothing.</text>
+
+      <!-- Q2 -->
+      <rect class="dq" x="50" y="300" width="500" height="72" rx="13"/>
+      <text class="dtxt" x="300" y="330" text-anchor="middle">How many conversions does this</text>
+      <text class="dtxt" x="300" y="352" text-anchor="middle">campaign get per month?</text>
+
+      <!-- Outcome B (crit) -->
+      <rect class="dout" x="100" y="420" width="400" height="82" rx="12"/>
+      <rect class="bar-crit" x="100" y="420" width="5" height="82"/>
+      <text class="dtxt" x="120" y="448">Not yet.</text>
+      <text class="dtxt-n" x="120" y="470" font-size="13">Run Maximize Clicks or manual CPC with</text>
+      <text class="dtxt-n" x="120" y="489" font-size="13">tight targeting and build volume first.</text>
+
+      <!-- Outcome C (warn) -->
+      <rect class="dout" x="100" y="520" width="400" height="82" rx="12"/>
+      <rect class="bar-warn" x="100" y="520" width="5" height="82"/>
+      <text class="dtxt" x="120" y="548">Borderline.</text>
+      <text class="dtxt-n" x="120" y="570" font-size="13">Start a conversion strategy, but expect</text>
+      <text class="dtxt-n" x="120" y="589" font-size="13">noisy weeks — don't edit constantly.</text>
+
+      <!-- Outcome D (ok) -->
+      <rect class="dout" x="100" y="620" width="400" height="82" rx="12"/>
+      <rect class="bar-ok" x="100" y="620" width="5" height="82"/>
+      <text class="dtxt" x="120" y="648">Good to go.</text>
+      <text class="dtxt-n" x="120" y="670" font-size="13">Enough signal for Smart Bidding to</text>
+      <text class="dtxt-n" x="120" y="689" font-size="13">actually learn and improve.</text>
+    </svg>
+    <figcaption>Treat these numbers as working rules of thumb, not official limits — the right threshold varies by strategy and how steady your conversions are.</figcaption>
+  </figure>
+
+  <p>So if your account is small and your conversions are sparse, the honest answer isn't "Smart Bidding is bad." It's "your account isn't feeding it enough yet." The fix is usually unglamorous: make sure tracking is clean, concentrate your budget instead of spreading it thin, run a simpler strategy while you build volume, and only hand the wheel to Smart Bidding once there's enough data for it to drive on.</p>
+  <p>Used at the right time, with clean data and a clear goal, Smart Bidding genuinely does what it promised. Used too early, on an account that can't feed it, it behaves exactly like the nightmare everyone complains about. Same tool — the difference is whether you gave it enough to learn from.</p>
+
+  <section class="cta">
+    <h2>Not sure your account has the volume — or the tracking — for Smart Bidding?</h2>
+    <p>Run your export through the free Ad Spend Autopsy audit. It flags the exact things that starve automated bidding: zero-conversion spend, broad-match leaks, budget caps and thin conversion volume.</p>
+    <a class="cta-btn" href="/audit">Run the free audit</a>
+  </section>
+</article>
+
+<footer>Directional guidance, not a replacement for a full account review. Menu paths and thresholds reflect Google Ads in 2026 and may change.</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K1V146SCTV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K1V146SCTV');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google Ads Break-Even & Profit Calculator | Ad Spend Autopsy</title>
+<meta name="description" content="Free break-even and profit calculator for Google Ads. Set your margin, import your account, and see which campaigns actually profit after product cost, fees and refunds — not just ROAS.">
+<meta name="theme-color" content="#0f7052">
+<link rel="canonical" href="https://www.adspendautopsy.com/calculator">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Google Ads Break-Even & Profit Calculator">
+<meta property="og:description" content="See which Google Ads campaigns actually profit after real costs. Free, runs in your browser.">
+<meta property="og:url" content="https://www.adspendautopsy.com/calculator">
+<meta property="og:image" content="https://www.adspendautopsy.com/logo-light.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="/logo-light.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf9f7; --surface:#ffffff; --ink:#201d1a; --ink-2:#6b6760; --muted:#9a968e;
+  --teal:#0f7052; --teal-ink:#0a5a42; --teal-soft:#e9f4ef;
+  --line:#edece7; --line-2:#e3e1da;
+  --good:#1b7a4d; --good-soft:#e7f4ec; --bad:#c0442a; --bad-soft:#fbeee9; --warn:#a9790f; --warn-soft:#f8f1df;
+  --shadow:0 1px 2px rgba(30,25,20,.04), 0 4px 16px rgba(30,25,20,.05); --shadow-sm:0 1px 2px rgba(30,25,20,.05);
+  --font:"Rubik",system-ui,-apple-system,sans-serif; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141619; --surface:#1d2024; --ink:#f1f1ef; --ink-2:#a8a69e; --muted:#76746c;
+  --teal:#2ec08c; --teal-ink:#5dcaa5; --teal-soft:#15302a; --line:#2a2d33; --line-2:#33363c;
+  --good:#6fd49a; --good-soft:#142f22; --bad:#f0a088; --bad-soft:#321d17; --warn:#e6b85f; --warn-soft:#2c2512;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25); --shadow-sm:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141619; --surface:#1d2024; --ink:#f1f1ef; --ink-2:#a8a69e; --muted:#76746c;
+  --teal:#2ec08c; --teal-ink:#5dcaa5; --teal-soft:#15302a; --line:#2a2d33; --line-2:#33363c;
+  --good:#6fd49a; --good-soft:#142f22; --bad:#f0a088; --bad-soft:#321d17; --warn:#e6b85f; --warn-soft:#2c2512;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25); --shadow-sm:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:720px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav img{height:30px;width:auto}
+.nav .logo-light{display:block} .nav .logo-dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nav .logo-light{display:none} :root:not([data-theme="light"]) .nav .logo-dark{display:block}}
+:root[data-theme="dark"] .nav .logo-light{display:none} :root[data-theme="dark"] .nav .logo-dark{display:block}
+.nav-tag{color:var(--muted);font-size:13px;font-weight:500;white-space:nowrap}
+.nav .brand{display:flex;align-items:center}
+.nav-links{display:flex;gap:18px;align-items:center}
+.nav-links a{color:var(--ink-2);text-decoration:none;font-size:14px;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px 72px}
+.hero{text-align:center;margin:0 0 26px}
+h1{font-weight:800;font-size:31px;line-height:1.14;margin:0 0 12px;letter-spacing:-.02em;text-wrap:balance}
+.lede{color:var(--ink-2);font-size:16.5px;margin:0 auto;max-width:35em}
+.step{font-size:12.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--teal-ink);margin:26px 0 10px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:8px 24px 24px}
+.ccy{display:flex;justify-content:flex-end;padding:14px 0 4px}
+.ccy select{font-family:var(--font);font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line-2);border-radius:8px;padding:6px 10px}
+.field{padding:18px 0;border-top:1px solid var(--line)}
+.field:first-of-type{border-top:none}
+.flabel{font-weight:500;font-size:15.5px;margin:0 0 2px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.fhelp{color:var(--muted);font-size:13px;margin:0 0 12px}
+.money-in{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:10px;background:var(--bg);overflow:hidden;max-width:220px}
+.money-in .sym{padding:0 12px;color:var(--ink-2);font-weight:500;border-right:1px solid var(--line-2);align-self:stretch;display:flex;align-items:center;background:var(--surface)}
+.money-in input{border:none;background:transparent;color:var(--ink);font-family:var(--font);font-size:17px;font-weight:500;padding:11px 12px;width:100%;outline:none}
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--line-2);border-radius:10px;padding:3px;margin:0 0 14px;flex-wrap:wrap}
+.seg button{font-family:var(--font);font-size:13.5px;font-weight:500;border:none;background:transparent;color:var(--ink-2);padding:7px 14px;border-radius:7px;cursor:pointer}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-sm)}
+.slider-row{display:flex;align-items:center;gap:14px}
+input[type=range]{-webkit-appearance:none;appearance:none;height:5px;border-radius:5px;background:var(--line-2);flex:1;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--teal);cursor:pointer;box-shadow:var(--shadow-sm)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border:none;border-radius:50%;background:var(--teal);cursor:pointer}
+.slider-val{font-weight:600;font-size:17px;min-width:92px;text-align:right;font-variant-numeric:tabular-nums}
+.derived{color:var(--muted);font-size:13px;margin:8px 0 0}
+.warnline{color:var(--bad);font-size:13px;margin:8px 0 0;display:none} .warnline.show{display:block}
+details.ftune{margin:6px 0 0;border-top:1px solid var(--line)}
+details.ftune summary{cursor:pointer;padding:16px 0 4px;font-weight:500;font-size:14px;color:var(--teal-ink);list-style:none}
+details.ftune summary::-webkit-details-marker{display:none}
+details.ftune summary::before{content:"+ Fine-tune fees, shipping & refunds";}
+details.ftune[open] summary::before{content:"– Fine-tune fees, shipping & refunds";}
+
+.verdict{margin-top:18px;border-radius:18px;padding:24px 26px;border:1px solid}
+.verdict.good{background:var(--good-soft);border-color:color-mix(in srgb,var(--good) 30%,transparent)}
+.verdict.bad{background:var(--bad-soft);border-color:color-mix(in srgb,var(--bad) 30%,transparent)}
+.verdict .vk{font-size:13px;font-weight:500;margin:0 0 4px;text-transform:uppercase;letter-spacing:.06em}
+.verdict.good .vk{color:var(--good)} .verdict.bad .vk{color:var(--bad)}
+.verdict .vbig{font-weight:800;font-size:34px;line-height:1;margin:0;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.verdict.good .vbig{color:var(--good)} .verdict.bad .vbig{color:var(--bad)}
+.verdict .vsub{color:var(--ink);font-size:15px;margin:10px 0 0;max-width:46em}
+.statbar{display:flex;flex-wrap:wrap;margin:14px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);overflow:hidden}
+.stat{flex:1 1 150px;padding:16px 18px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .sv{display:block;font-weight:600;font-size:19px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.stat .sv.good{color:var(--good)} .stat .sv.bad{color:var(--bad)}
+.stat .sk{display:block;color:var(--ink-2);font-size:12.5px;margin-top:2px} .stat .sk small{color:var(--muted)}
+
+.upload{text-align:center;padding:26px 22px}
+.upload .big{font-weight:600;font-size:16px;margin:0 0 3px}
+.upload .sub{color:var(--ink-2);font-size:13.5px;margin:0 0 16px}
+.btn{font-family:var(--font);font-weight:500;font-size:15px;border:none;background:var(--teal);color:#fff;border-radius:10px;padding:11px 22px;cursor:pointer;box-shadow:var(--shadow-sm)}
+.slots{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 0}
+.slot{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-2);border-radius:999px;padding:5px 13px;font-size:13px;color:var(--muted);background:var(--bg)}
+.slot .tick{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--line-2);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.slot.on{color:var(--ink);border-color:var(--teal)} .slot.on .tick{background:var(--teal);border-color:var(--teal);color:#fff}
+.subtle-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:14px 0 0}
+.link{background:none;border:none;color:var(--teal-ink);cursor:pointer;font:inherit;font-size:13.5px;text-decoration:underline;padding:2px}
+.err{background:var(--bad-soft);color:var(--bad);border-radius:12px;padding:13px 18px;margin:14px 0 0;font-size:14px}
+
+.insight{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:0 12px 12px 0;padding:14px 18px;margin:10px 0;box-shadow:var(--shadow-sm)}
+.insight.bad{border-left-color:var(--bad)} .insight.good{border-left-color:var(--good)} .insight.warn{border-left-color:var(--warn)}
+.insight p{margin:0;font-size:15px} .insight b{font-weight:600}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);background:var(--surface);margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:right;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal;min-width:150px}
+th{font-weight:500;color:var(--muted);font-size:12px;background:var(--bg)}
+tr:last-child td{border-bottom:none}
+td.pos{color:var(--good);font-weight:500} td.neg{color:var(--bad);font-weight:500}
+
+.meth{border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow-sm);padding:0 18px;margin-top:22px}
+.meth summary{cursor:pointer;padding:14px 0;font-weight:500;font-size:14px;list-style:none}
+.meth summary::-webkit-details-marker{display:none}
+.meth summary::before{content:"+ ";color:var(--teal-ink);font-weight:600} .meth[open] summary::before{content:"– "}
+.meth ul{margin:0 0 14px;padding-left:18px;color:var(--ink-2);font-size:14px} .meth li{margin:7px 0} .meth b{color:var(--ink);font-weight:500}
+
+.cta{margin-top:34px;border-radius:18px;background:var(--teal-soft);border:1px solid color-mix(in srgb,var(--teal) 22%,transparent);padding:28px 26px}
+.cta h2{font-weight:800;font-size:21px;margin:0 0 8px;letter-spacing:-.01em}
+.cta p{color:var(--ink-2);margin:0 0 8px;max-width:50em} .cta .lead{color:var(--ink);font-weight:500}
+.cta a{display:inline-block;margin-top:14px;background:var(--teal);color:#fff;text-decoration:none;font-weight:500;font-size:15px;padding:12px 24px;border-radius:10px;box-shadow:var(--shadow-sm)}
+.cta .handle{color:var(--muted);font-size:13px;margin:10px 0 0}
+.cta2{margin-top:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);padding:22px 24px}
+.cta2 h3{font-weight:600;font-size:17px;margin:0 0 6px}
+.cta2 p{color:var(--ink-2);margin:0 0 6px;font-size:14.5px;max-width:52em} .cta2 .lead{color:var(--ink);font-weight:500}
+.cta2 a{display:inline-block;margin-top:12px;background:var(--teal);color:#fff;text-decoration:none;font-weight:500;font-size:14.5px;padding:10px 20px;border-radius:9px}
+.cta2 .handle{color:var(--muted);font-size:12.5px;margin:9px 0 0}
+.wrap-td td{white-space:normal} .wrap-td td:first-child{min-width:140px;font-weight:500;color:var(--ink)}
+footer{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;text-align:center}
+.hidden{display:none}
+
+.nav .brand{display:inline-flex;align-items:center}
+.nav-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--ink-2);text-decoration:none;font-size:14px;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+@media (max-width:480px){.nav-links{gap:12px}.nav-links a{font-size:13px}}
+
+.badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;letter-spacing:.02em;color:var(--teal-ink);background:var(--teal-soft);border:1px solid color-mix(in srgb,var(--teal) 20%,transparent);padding:5px 13px;border-radius:999px;margin:0 0 18px}
+.badge .d{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.trust{display:flex;gap:10px 20px;justify-content:center;flex-wrap:wrap;margin:18px 0 0;color:var(--muted);font-size:13px}
+.trust span{display:inline-flex;align-items:center;gap:6px}
+.trust .c{color:var(--teal);font-weight:700}
+.hero h1{font-size:33px;line-height:1.12;letter-spacing:-.02em}
+.hero .lede{font-size:17px}
+.card.upload{border-style:dashed;border-width:1.5px;border-color:var(--line-2)}
+.seo-copy{margin-top:40px;color:var(--ink-2);font-size:14px;line-height:1.7}
+.seo-copy h2{color:var(--ink);font-weight:800;font-size:20px;letter-spacing:-.01em;margin:0 0 10px}
+.seo-copy p{margin:0 0 12px;max-width:60em}
+.seo-copy b{color:var(--ink);font-weight:500}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a class="brand" href="/" aria-label="Ad Spend Autopsy home">
+    <img class="logo-light" src="/logo-light.png" alt="Ad Spend Autopsy">
+    <img class="logo-dark" src="/logo-dark.png" alt="Ad Spend Autopsy">
+  </a>
+  <div class="nav-links">
+    <a href="/audit">Audit</a>
+    <a href="/calculator">Calculator</a>
+    <a href="/how-smart-bidding-works">Guide</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="badge"><span class="d"></span> Free · Private · No sign-up</span>
+    <h1>Are your ad sales actually making money?</h1>
+    <p class="lede">ROAS hides product cost, fees, shipping and refunds. Set your margin, then optionally import your account — it runs your real campaigns through that margin and tells you which ones actually profit.</p>
+    <div class="trust">
+      <span><span class="c">✓</span> Nothing uploaded</span>
+      <span><span class="c">✓</span> Results as you type</span>
+      <span><span class="c">✓</span> Built on 14 years of PPC</span>
+    </div>
+  </header>
+
+  <p class="step">Step 1 — set your margin</p>
+  <div class="card">
+    <div class="ccy">
+      <select id="ccy" aria-label="Currency"><option value="$">$ USD</option><option value="₹">₹ INR</option><option value="£">£ GBP</option><option value="€">€ EUR</option><option value="A$">A$ AUD</option></select>
+    </div>
+    <div class="field">
+      <p class="flabel">What you charge per sale</p>
+      <p class="fhelp">Your typical order value. Used for the single-sale check, and as order value if an imported file has no revenue column.</p>
+      <div class="money-in"><span class="sym" data-sym>$</span><input id="price" type="number" inputmode="decimal" min="0" step="1" value="50"></div>
+    </div>
+    <div class="field">
+      <p class="flabel">What the product costs you</p>
+      <p class="fhelp">Don't know the exact cost? Use the markup you sell at — most people know that.</p>
+      <div class="seg" id="costmode">
+        <button type="button" data-mode="markup" class="on">I sell at ~2× cost</button>
+        <button type="button" data-mode="exact">I know my exact cost</button>
+      </div>
+      <div id="markupBox">
+        <div class="slider-row"><input id="markup" type="range" min="1.1" max="6" step="0.1" value="2.5"><span class="slider-val" id="markupVal">2.5× cost</span></div>
+        <p class="derived" id="costDerived"></p>
+      </div>
+      <div id="exactBox" style="display:none">
+        <div class="money-in"><span class="sym" data-sym>$</span><input id="cost" type="number" inputmode="decimal" min="0" step="1" value="20"></div>
+        <p class="warnline" id="costWarn">That's higher than your price — you'd lose money on every sale before ads.</p>
+      </div>
+    </div>
+    <div class="field">
+      <p class="flabel">What you pay in ads per sale</p>
+      <p class="fhelp">Your cost per purchase (CPA). Only used for the single-sale check below — the import uses your file's real spend.</p>
+      <div class="money-in"><span class="sym" data-sym>$</span><input id="cpa" type="number" inputmode="decimal" min="0" step="1" value="18"></div>
+    </div>
+    <details class="ftune"><summary></summary>
+      <div class="field" style="border-top:none;padding-top:6px"><p class="flabel">Payment fees <span class="slider-val" id="feeVal" style="font-size:15px">3%</span></p><input id="fee" type="range" min="0" max="8" step="0.5" value="3"></div>
+      <div class="field"><p class="flabel">Shipping you absorb per order</p><div class="money-in"><span class="sym" data-sym>$</span><input id="ship" type="number" inputmode="decimal" min="0" step="1" value="0"></div></div>
+      <div class="field"><p class="flabel">Refund / discount allowance <span class="slider-val" id="refVal" style="font-size:15px">2%</span></p><input id="ref" type="range" min="0" max="15" step="0.5" value="2"></div>
+    </details>
+  </div>
+
+  <div id="verdict"></div>
+  <div id="statbar"></div>
+
+  <p class="step">Step 2 — import your account <span style="color:var(--muted);text-transform:none;letter-spacing:0;font-weight:400">(optional)</span></p>
+  <div class="card upload" id="drop">
+    <p class="big">Drop a performance report here</p>
+    <p class="sub">A performance report (Cost, Conversions, ideally Conv. value). Add a GA4/analytics revenue export and it uses your true revenue instead of the ad platform's; add a bulksheet and it flags which losers are on autopilot. Matched by campaign name.</p>
+    <button class="btn" id="pick" type="button">Choose CSV file(s)</button>
+    <input type="file" id="file" accept=".csv,text/csv" multiple class="hidden">
+    <div class="slots">
+      <span class="slot" id="slot-perf"><span class="tick">?</span> Performance report</span>
+      <span class="slot" id="slot-rev"><span class="tick">?</span> Revenue (GA4 / analytics)</span>
+      <span class="slot" id="slot-struct"><span class="tick">?</span> Bulksheet</span>
+    </div>
+    <div class="subtle-actions">
+      <button class="link" id="sample" type="button">See it with sample data</button>
+      <button class="link" id="sreset" type="button">Clear</button>
+    </div>
+  </div>
+
+  <details class="meth" style="margin-top:14px">
+    <summary>How to download each file (Google Ads, GA4, Meta)</summary>
+    <p style="font-weight:500;margin:4px 0 2px;color:var(--ink)">Performance report — Google Ads</p>
+    <ul>
+      <li>Click the <b>Campaigns</b> icon → <b>Campaigns</b>. Open the columns icon → <b>Modify columns</b> and make sure <b>Cost</b>, <b>Conversions</b> and <b>Conv. value</b> are shown, then apply.</li>
+      <li>Set a 30–90 day range, click the <b>download icon</b> (top right) → <b>.csv</b>.</li>
+    </ul>
+    <p style="font-weight:500;margin:12px 0 2px;color:var(--ink)">Performance report — Meta Ads (if you run Meta)</p>
+    <ul>
+      <li>Ads Manager → <b>Campaigns</b>. Customise columns so <b>Amount spent</b>, <b>Purchases</b> and <b>Purchases conversion value</b> are included, then apply.</li>
+      <li>Use <b>Reports → Export table data</b> → CSV.</li>
+    </ul>
+    <p style="font-weight:500;margin:12px 0 2px;color:var(--ink)">True revenue — GA4</p>
+    <ul>
+      <li>Reports → Acquisition → <b>Traffic acquisition</b>. Change the primary dimension to <b>Session campaign</b> (or <b>Session Google Ads campaign</b> for paid Google only) — the table already shows <b>Total revenue</b>.</li>
+      <li>Match the date range to your ad report, then <b>Share this report → Download file → CSV</b>. GA4 adds a few header rows above the table; the tool skips them.</li>
+      <li>No revenue showing? Your purchase/ecommerce events need to be set up in GA4 first — without them there's no revenue to export.</li>
+    </ul>
+    <p style="font-weight:500;margin:12px 0 2px;color:var(--ink)">Bulksheet — Google Ads Editor (optional)</p>
+    <ul>
+      <li>Google Ads Editor → <b>Account</b> menu → <b>Export</b> → <b>Export whole account</b> → CSV. Turn on "Include original columns in CSV/ZIP exports" in Settings to keep performance data.</li>
+    </ul>
+    <p style="color:var(--muted);font-size:12.5px;margin:6px 0 14px">Files are matched by <b>campaign name</b>, so the names need to line up across files — your Google Ads campaign name should match GA4's Session Google Ads campaign, and a Meta campaign matches GA4's Session campaign via your UTM. Paths follow the current interfaces; if something's moved, search the platform's own help.</p>
+  </details>
+
+  <div class="cta2">
+    <h3>Can't get the revenue to line up?</h3>
+    <p>This only stitches if your campaign names match across Google Ads, GA4 and Meta — and in real accounts they often don't: UTMs, renames, and inconsistent naming leave your revenue stranded from your spend. Mapping it back to the right campaigns is fiddly, one-off work.</p>
+    <p class="lead">I can clean and align your exports so they stitch correctly — a quick paid data-prep job. Send me what you've got.</p>
+    <a href="https://instagram.com/adspendautopsy">Get your data aligned</a>
+    <p class="handle">DM @AdSpendAutopsy</p>
+  </div>
+
+  <div id="err" class="err hidden"></div>
+  <div id="account"></div>
+
+  <details class="meth"><summary>How this is worked out</summary>
+    <div class="tblwrap wrap-td" style="margin:4px 0 14px"><table>
+      <thead><tr><th>What</th><th>How it's worked out</th></tr></thead>
+      <tbody>
+        <tr><td>Your margin</td><td>From the markup (cost = price ÷ markup, so 2× = 50%) or your exact cost, minus payment fees, refund allowance and shipping.</td></tr>
+        <tr><td>Profit per sale</td><td>price × margin − your CPA. Break-even ROAS = price ÷ (price × margin).</td></tr>
+        <tr><td>Revenue used (import)</td><td>Your GA4 / analytics export first (matched by campaign name), then the ad platform's Conv. value, then orders × your price.</td></tr>
+        <tr><td>True profit per campaign</td><td>revenue × your margin − shipping × orders − ad spend.</td></tr>
+        <tr><td>ROAS mirage</td><td>Flagged when ROAS looks positive but true profit is negative — i.e. ROAS sits below your break-even ROAS.</td></tr>
+        <tr><td>Revenue gap</td><td>When both analytics and ad-platform revenue are present, shows how far the platform over- or under-reports — the attribution gap behind an inflated ROAS.</td></tr>
+        <tr><td>Privacy</td><td>Everything is computed in your browser from the numbers you enter and the files you pick. Nothing is uploaded.</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+
+  <section class="cta">
+    <h2>Margin thinner than you thought?</h2>
+    <p>This tells you which campaigns lose money after real costs. It won't tell you why, or how to get them under break-even without killing the volume that works.</p>
+    <p class="lead">That's a 30-minute teardown with someone who's run accounts for 14 years. Send your numbers and I'll show you where the room is.</p>
+    <a href="https://instagram.com/adspendautopsy">Get a teardown</a>
+    <p class="handle">DM @AdSpendAutopsy</p>
+  </section>
+
+  <section class="seo-copy">
+    <h2>Profit, not just ROAS</h2>
+    <p>A high ROAS can still lose money. This free <b>Google Ads break-even calculator</b> applies your real margin — after product cost, payment fees, shipping and refunds — to show which campaigns actually profit, and the <b>break-even ROAS</b> each one needs to clear. Start with a simple “I sell at ~2× cost” input, then import your Google Ads performance and GA4 revenue to see true profit per campaign.</p>
+    <p>Because the maths runs <b>entirely in your browser</b>, nothing is uploaded. Use it to catch the “looks fine on ROAS, loses money” campaigns before they drain the budget.</p>
+  </section>
+
+  <footer>Directional estimate, not accounting. Uses the numbers you enter and the file you pick; defaults are rules of thumb you can change.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var sym="$";
+  function fmt(n){ var a=Math.abs(n); var dec=a<100&&a%1!==0?2:(a<10?2:0);
+    return (n<0?"-":"")+sym+a.toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:dec}); }
+  function val(id){ var v=parseFloat($(id).value); return isNaN(v)?0:v; }
+
+  // ---- CSV ----
+  function parseCSV(text){ var rows=[],row=[],f="",q=false,i=0,c;
+    while(i<text.length){ c=text[i];
+      if(q){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i+=2;continue;} q=false;i++;continue; } f+=c;i++;continue; }
+      if(c==='"'){q=true;i++;continue;} if(c===','){row.push(f);f="";i++;continue;}
+      if(c==='\r'){i++;continue;} if(c==='\n'){row.push(f);rows.push(row);row=[];f="";i++;continue;} f+=c;i++; }
+    if(f!==""||row.length){row.push(f);rows.push(row);} return rows; }
+  function numc(v){ var s=(""+(v==null?"":v)).replace(/[^0-9.\-]/g,""); if(s===""||s==="-")return 0; var x=parseFloat(s); return isNaN(x)?0:x; }
+  function findKey(h,cs){ for(var i=0;i<h.length;i++){ var s=h[i].toLowerCase().replace(/\s+/g," ").trim();
+    for(var j=0;j<cs.length;j++){ if(s===cs[j]||s.indexOf(cs[j])===0) return h[i]; } } return null; }
+  function headerRow(rows){ var tk=["campaign","product","cost","conversions","conv. value","clicks","bid strategy","match type"];
+    for(var i=0;i<Math.min(rows.length,10);i++){ var j=rows[i].join(" ").toLowerCase(); for(var t=0;t<tk.length;t++){ if(j.indexOf(tk[t])>-1) return i; } } return 0; }
+
+  var ACCT=null, STRAT=null, REV=null; // ACCT perf; STRAT strategies; REV analytics revenue by normalised name
+  function norm(s){return (""+s).toLowerCase().replace(/\s+/g," ").trim();}
+
+  function ingest(text){
+    var r0=parseCSV(text.trim()).filter(function(r){return r.length&&!(r.length===1&&r[0]==="");});
+    if(r0.length<2) throw new Error("That file didn't have enough rows to read.");
+    var hi=headerRow(r0), H=r0[hi].map(function(x){return (""+x).trim();}), idx={}; H.forEach(function(h,i){idx[h]=i;});
+    var rows=r0.slice(hi+1).filter(function(r){return r.length&&(""+(r[0]||"")).toLowerCase().trim().indexOf("total")!==0;});
+    function cell(r,k){return k?(r[idx[k]]||""):"";}
+    var Kname=findKey(H,["campaign","session google ads campaign","session campaign","session manual campaign name","product title","product","item id"]);
+    var Kcost=findKey(H,["cost","spend"]), Kconv=findKey(H,["conversions","conv."]),
+        Kcv=findKey(H,["conv. value","conversions value","total conv. value","all conv. value","conversion value"]),
+        Krev=findKey(H,["total revenue","purchase revenue","item revenue","revenue"]),
+        Kstrat=findKey(H,["bid strategy type","campaign bid strategy type","bid strategy"]);
+
+    if(Kcost&&Kconv){ // performance report (ad data)
+      var agg={};
+      rows.forEach(function(r){ var nm=(Kname?(""+cell(r,Kname)).trim():"")||"(unnamed)";
+        agg[nm]=agg[nm]||{name:nm,cost:0,conv:0,rev:0,hasRev:!!(Kcv||Krev)};
+        agg[nm].cost+=numc(cell(r,Kcost)); agg[nm].conv+=numc(cell(r,Kconv));
+        if(Kcv)agg[nm].rev+=numc(cell(r,Kcv)); else if(Krev)agg[nm].rev+=numc(cell(r,Krev)); });
+      ACCT=Object.keys(agg).map(function(k){return agg[k];}).filter(function(x){return x.cost>0||x.conv>0;});
+      if(!ACCT.length) throw new Error("No spend rows found in that performance file.");
+      if(Kstrat){ STRAT=STRAT||{}; rows.forEach(function(r){ var nm=(Kname?(""+cell(r,Kname)).trim():""),s=(""+cell(r,Kstrat)).trim(); if(nm&&s&&!STRAT[nm])STRAT[nm]=s; }); }
+      return;
+    }
+    if(Krev&&Kname){ // revenue report (GA4 / analytics): revenue by campaign, no cost column
+      REV=REV||{}; var got=0; rows.forEach(function(r){ var nm=norm(cell(r,Kname)); if(!nm)return; var v=numc(cell(r,Krev)); if(v){REV[nm]=(REV[nm]||0)+v;got++;} });
+      if(!got){ REV=null; throw new Error("That looked like a revenue report, but I couldn't read revenue by campaign from it."); }
+      return;
+    }
+    if(Kstrat){ STRAT=STRAT||{}; rows.forEach(function(r){ var nm=(Kname?(""+cell(r,Kname)).trim():""),s=(""+cell(r,Kstrat)).trim(); if(nm&&s&&!STRAT[nm])STRAT[nm]=s; }); return; }
+    throw new Error("Couldn't recognise this file. Need a performance report (Cost + Conversions), a revenue report (campaign + revenue, e.g. GA4), or a bulksheet (Bid strategy).");
+  }
+
+  function model(){
+    sym=$("ccy").value;
+    Array.prototype.forEach.call(document.querySelectorAll("[data-sym]"),function(e){e.textContent=sym;});
+    var price=val("price"), mode=window._mode||"markup", cost=mode==="exact"?val("cost"):(val("markup")>0?price/val("markup"):0);
+    var feeFrac=val("fee")/100, refFrac=val("ref")/100, ship=val("ship");
+    var gm=price>0?(price-cost)/price:0;                 // gross margin fraction
+    var grossFrac=gm-feeFrac-refFrac;                    // margin fraction before shipping
+    return {price:price,cost:cost,cpa:val("cpa"),gm:gm,grossFrac:grossFrac,ship:ship,feeFrac:feeFrac,refFrac:refFrac,mode:mode};
+  }
+
+  function renderSingle(m){
+    $("markupVal").textContent=val("markup").toFixed(1)+"× cost";
+    $("feeVal").textContent=val("fee")+"%"; $("refVal").textContent=val("ref")+"%";
+    if(m.mode==="markup") $("costDerived").textContent="≈ "+fmt(m.cost)+" cost per unit — slide to match what you actually pay.";
+    $("costWarn").classList.toggle("show", m.mode==="exact"&&m.cost>m.price&&m.price>0);
+
+    var margin=m.price*m.grossFrac-m.ship, profit=margin-m.cpa, beROAS=margin>0?m.price/margin:null, curROAS=m.cpa>0?m.price/m.cpa:null;
+    var good=profit>=0&&margin>0, vk,vbig,vsub;
+    if(margin<=0){ good=false; vk="Underwater before ads"; vbig=fmt(margin);
+      vsub="Your costs are higher than your price, so every sale loses money before a cent goes to ads. Fix pricing or cost first."; }
+    else if(profit>=0){ vk="Profit per sale"; vbig="+"+fmt(profit);
+      vsub="You keep "+fmt(profit)+" on every "+fmt(m.price)+" sale after product cost and "+fmt(m.cpa)+" in ads. Break-even is "+fmt(margin)+" of ad cost per sale — a break-even ROAS of "+beROAS.toFixed(2)+"×."; }
+    else { vk="Losing money per sale"; vbig=fmt(profit);
+      vsub="At "+fmt(m.cpa)+" per sale you're paying more than the "+fmt(margin)+" each order leaves you. You need ad cost under "+fmt(margin)+" — a ROAS above "+beROAS.toFixed(2)+"× — to profit."; }
+    $("verdict").innerHTML='<div class="verdict '+(good?"good":"bad")+'"><p class="vk">'+vk+'</p><p class="vbig">'+vbig+'</p><p class="vsub">'+vsub+'</p></div>';
+    var S=[['Your margin',Math.round(m.grossFrac*100)+'%','kept per sale'],['Break-even ad cost',margin>0?fmt(margin):'—','max CPA'],
+      ['Break-even ROAS',beROAS?beROAS.toFixed(2)+'×':'—','minimum to profit'],['Your ROAS now',curROAS?curROAS.toFixed(2)+'×':'—','at '+fmt(m.cpa)]];
+    $("statbar").innerHTML='<div class="statbar">'+S.map(function(s){return '<div class="stat"><span class="sv">'+s[1]+'</span><span class="sk">'+s[0]+' <small>'+s[2]+'</small></span></div>';}).join("")+'</div>';
+  }
+
+  function renderAccount(m){
+    $("slot-perf").classList.toggle("on",!!ACCT); $("slot-perf").querySelector(".tick").textContent=ACCT?"✓":"?";
+    $("slot-rev").classList.toggle("on",!!REV); $("slot-rev").querySelector(".tick").textContent=REV?"✓":"?";
+    $("slot-struct").classList.toggle("on",!!STRAT); $("slot-struct").querySelector(".tick").textContent=STRAT?"✓":"?";
+    if(!ACCT){ $("account").innerHTML = REV?'<div class="insight warn" style="margin-top:22px"><p>Revenue loaded. Add a <b>performance report</b> (with Cost) and it will match by campaign and show profit for each.</p></div>':""; return; }
+
+    var revMap=REV||{}, usedPrice=false, usedAnalytics=false, adRevTot=0, anRevMatched=0, matchedCount=0;
+    var rows=ACCT.map(function(c){
+      var anr=revMap[norm(c.name)], rev, src;
+      if(anr!=null&&anr>0){ rev=anr; src="ga4"; usedAnalytics=true; matchedCount++; anRevMatched+=anr; }
+      else if(c.hasRev&&c.rev>0){ rev=c.rev; src="cv"; }
+      else { rev=c.conv*m.price; src="price"; usedPrice=true; }
+      if(c.hasRev&&c.rev>0) adRevTot+=c.rev;
+      var trueProfit=rev*m.grossFrac - m.ship*c.conv - c.cost;
+      return {name:c.name,cost:c.cost,conv:c.conv,rev:rev,src:src,profit:trueProfit,roas:c.cost>0?rev/c.cost:null,strat:STRAT&&STRAT[c.name]};
+    });
+    var totCost=0,totRev=0,totProfit=0,totConv=0; rows.forEach(function(r){totCost+=r.cost;totRev+=r.rev;totProfit+=r.profit;totConv+=r.conv;});
+    var acctMargin=totRev*m.grossFrac - m.ship*totConv, beROAS=acctMargin>0?totRev/acctMargin:null;
+    var losers=rows.filter(function(r){return r.profit<0;});
+    var mirage=rows.filter(function(r){return r.roas!=null&&r.roas>=1&&r.profit<0;});
+    var loserSpend=losers.reduce(function(s,r){return s+r.cost;},0);
+    var worst=rows.slice().sort(function(a,b){return a.profit-b.profit;})[0];
+    var best=rows.slice().sort(function(a,b){return b.profit-a.profit;})[0];
+    var maxclickLosers=losers.filter(function(r){return r.strat&&/max.*click/i.test(r.strat);});
+    var mp=Math.round(m.grossFrac*100);
+
+    var I=[];
+    I.push({sev:totProfit>=0?"good":"bad",html:"After real costs, this account "+(totProfit>=0?"made <b>"+fmt(totProfit)+"</b> profit":"lost <b>"+fmt(Math.abs(totProfit))+"</b>")+" on "+fmt(totCost)+" of ad spend — on "+fmt(totRev)+" of revenue at a "+mp+"% margin. Platform ROAS would call this "+(totCost>0?(totRev/totCost).toFixed(2):"—")+"×."});
+    if(usedAnalytics&&adRevTot>0&&anRevMatched>0){ var gap=(adRevTot-anRevMatched)/adRevTot*100;
+      if(Math.abs(gap)>=8) I.push({sev:"warn",html:"Your ad platform reports <b>"+fmt(adRevTot)+"</b> in revenue; your analytics shows <b>"+fmt(anRevMatched)+"</b> for the same campaigns — a <b>"+Math.round(Math.abs(gap))+"% "+(gap>0?"over":"under")+"-report</b>. These numbers use the analytics figure, which is the truer one to judge profit on."});
+    }
+    if(REV){ var unmatched=rows.filter(function(r){return r.src!=="ga4";}).length;
+      if(matchedCount===0) I.push({sev:"bad",html:"<b>None of your campaigns matched the analytics export by name</b>, so profit is still on ad-platform revenue. Your ad and GA4 campaign names aren't lining up — align them and these numbers get far sharper (see the data-prep note above)."});
+      else if(unmatched>0) I.push({sev:"warn",html:"<b>"+unmatched+" campaign"+(unmatched>1?"s":"")+" didn't match your analytics export by name</b>, so "+(unmatched>1?"they're":"it's")+" using ad-platform revenue instead. Mismatched names (UTMs, renames) are the usual cause."});
+    }
+    if(mirage.length) I.push({sev:"bad",html:"<b>"+mirage.length+" campaign"+(mirage.length>1?"s":"")+" look"+(mirage.length>1?"":"s")+" fine on ROAS but lose money</b> once your margin is applied — "+fmt(mirage.reduce(function(s,r){return s+r.cost;},0))+" of spend going quietly backwards. That's the gap ROAS hides."});
+    if(beROAS) I.push({sev:"warn",html:"At a "+mp+"% margin your <b>break-even ROAS is "+beROAS.toFixed(2)+"×</b>. "+losers.length+" of "+rows.length+" campaigns sit below it, together burning "+fmt(loserSpend)+"."});
+    if(worst&&worst.profit<0) I.push({sev:"bad",html:"Biggest leak: <b>"+esc(worst.name)+"</b> — "+fmt(worst.cost)+" spent, "+fmt(worst.profit)+" real profit"+(worst.roas!=null?" (looks like "+worst.roas.toFixed(2)+"× ROAS)":"")+"."});
+    if(best&&best.profit>0) I.push({sev:"good",html:"Best earner: <b>"+esc(best.name)+"</b> — "+fmt(best.profit)+" real profit. This is where more budget actually pays."});
+    if(maxclickLosers.length) I.push({sev:"warn",html:"<b>"+maxclickLosers.length+" of your money-losers "+(maxclickLosers.length>1?"are":"is")+" on Maximize clicks</b> — optimising for cheap clicks, not profit. First place to look."});
+
+    var tbl=rows.slice().sort(function(a,b){return a.profit-b.profit;}).slice(0,15).map(function(r){
+      var tag=r.src==="ga4"?' <small style="color:var(--muted)">GA4</small>':(r.src==="price"?' <small style="color:var(--muted)">est.</small>':'');
+      return '<tr><td>'+esc(r.name)+'</td><td>'+fmt(r.cost)+'</td><td>'+fmt(r.rev)+tag+'</td><td>'+(r.roas!=null?r.roas.toFixed(2)+'×':'—')+'</td><td class="'+(r.profit>=0?'pos':'neg')+'">'+(r.profit>=0?'+':'')+fmt(r.profit)+'</td></tr>';
+    }).join("");
+
+    var note="";
+    if(usedAnalytics) note+="Revenue uses your analytics export where campaigns matched"+(usedPrice||rows.some(function(r){return r.src==='cv';})?", and the ad-platform figure otherwise":"")+".";
+    else if(usedPrice) note+="No revenue column found, so revenue = orders × your "+fmt(m.price)+" price. Add a Conv. value or GA4 export for exact figures.";
+
+    $("account").innerHTML='<p class="step" style="margin-top:22px">Your account, run through your margin</p>'+
+      I.map(function(x){return '<div class="insight '+x.sev+'"><p>'+x.html+'</p></div>';}).join("")+
+      '<div class="tblwrap"><table><thead><tr><th>Campaign</th><th>Spend</th><th>Revenue</th><th>ROAS</th><th>True profit</th></tr></thead><tbody>'+tbl+'</tbody></table></div>'+
+      (note?'<p class="derived" style="margin-top:10px">'+note+'</p>':'');
+  }
+  function esc(s){return (""+s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+
+  function recompute(){ var m=model(); renderSingle(m); renderAccount(m); }
+
+  // cost mode
+  window._mode="markup";
+  Array.prototype.forEach.call($("costmode").children,function(b){ b.addEventListener("click",function(){
+    window._mode=b.dataset.mode;
+    Array.prototype.forEach.call($("costmode").children,function(x){x.classList.toggle("on",x.dataset.mode===window._mode);});
+    $("markupBox").style.display=window._mode==="markup"?"":"none"; $("exactBox").style.display=window._mode==="exact"?"":"none"; recompute(); }); });
+
+  ["price","cost","cpa","markup","fee","ship","ref","ccy"].forEach(function(id){ $(id).addEventListener("input",recompute); $(id).addEventListener("change",recompute); });
+
+  function run(text){ try{ ingest(text); $("err").classList.add("hidden"); recompute(); }
+    catch(e){ $("err").textContent=e.message||"Couldn't read that file."; $("err").classList.remove("hidden");
+      $("err").scrollIntoView({behavior:"smooth",block:"center"}); } }
+  var fi=$("file"); $("pick").addEventListener("click",function(){fi.click();});
+  function readFiles(l){ Array.prototype.forEach.call(l,function(f){ var r=new FileReader(); r.onload=function(){run(r.result);}; r.readAsText(f); }); }
+  fi.addEventListener("change",function(e){readFiles(e.target.files);});
+  var drop=$("drop");
+  ["dragenter","dragover"].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.style.borderColor="var(--teal)";});});
+  ["dragleave","drop"].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.style.borderColor="";});});
+  drop.addEventListener("drop",function(e){readFiles(e.dataTransfer.files);});
+  $("sreset").addEventListener("click",function(){ACCT=null;STRAT=null;REV=null;$("err").classList.add("hidden");recompute();});
+
+  var SAMPLE_PERF=[
+    "Campaign,Cost,Conversions,Conv. value,Bid strategy type",
+    "Shopping - Bestsellers,1200,95,4600,Maximize conversions",
+    "Search - Brand,180,70,3200,Maximize conversions",
+    "Shopping - Clearance,900,80,1300,Maximize clicks",
+    "Search - Generic,1400,55,1900,Maximize clicks",
+    "PMax - All Products,2100,120,3600,Maximize conversion value"
+  ].join("\n");
+  var SAMPLE_REV=[
+    "Session Google Ads campaign,Total revenue",
+    "Shopping - Bestsellers,4100",
+    "Search - Brand,2400",
+    "Shopping - Clearance,1150",
+    "Search - Generic,1500",
+    "PMax - All Products,2600"
+  ].join("\n");
+  $("sample").addEventListener("click",function(){ACCT=null;STRAT=null;REV=null;run(SAMPLE_PERF);run(SAMPLE_REV);});
+
+  recompute();
+})();
+</script>
+</body>
+</html>
