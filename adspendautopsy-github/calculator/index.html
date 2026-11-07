@@ -506,7 +506,9 @@ footer{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);color:v
     "Search - Generic,1500",
     "PMax - All Products,2600"
   ].join("\n");
-  $("sample").addEventListener("click",function(){ACCT=null;STRAT=null;REV=null;run(SAMPLE_PERF);run(SAMPLE_REV);});
+  $("sample").addEventListener("click",function(){ACCT=null;STRAT=null;REV=null;run(SAMPLE_PERF);run(SAMPLE_REV);
+    if(ACCT){ var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      $("account").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); } });
 
   recompute();
 })();
